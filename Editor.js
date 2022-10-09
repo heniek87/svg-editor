@@ -2,10 +2,13 @@ class Editor {
   tmpImg = false
   constructor() {
     this.RawSvg = RawSVG
+
     this.DOMEditor = document.querySelector("#editor")
+
     this.editorHelper = document.querySelector("#editorHelper")
     this.editorHelper.innerHTML = this.RawSvg
     this.svg = this.editorHelper.querySelector("SVG")
+
     let image = new Image()
     this.imageSrc = this.svg.querySelector("IMAGE").getAttribute("xlink:href")
     image.src = this.imageSrc
