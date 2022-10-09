@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="css/main.min.css">
+  <script src="Editor.js"></script>
+</head>
+
+<body>
+  <div class="app">
+    <div class="toolbar">
+      <ul>
+        <!-- <li disabled>New</li> -->
+        <li id="openFileBtn">Open</li>
+        <li disabled id="saveFileBtn">Save</li>
+        <li disabled id="importImage">Import image</li>
+        <li disabled>Zoom in</li>
+        <li disabled>Zoom out</li>
+        <li disabled>Add polygon</li>
+      </ul>
+      <script src="menu.js" defer></script>
+    </div>
+    <div class="editor" id="editor">
+
+    </div>
+  </div>
+  <div class="helpers">
+    <input type="file" id="fileOpenHelper" accept="image/svg+xml">
+    <input type="file" id="imageFileHelper" accept=".jpg,.gif,.png">
+    <a href="" id="fileSaveHelper"></a>
+    <div id="editorHelper"></div>
+  </div>
+</body>
+
+</html>

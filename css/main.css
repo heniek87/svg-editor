@@ -1,0 +1,56 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+* {
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: hsl(0deg, 0%, 20%);
+  color: hsl(0deg, 0%, 96%);
+}
+
+.helpers {
+  display: none;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+.app .toolbar {
+  padding: 0 10px;
+  background-color: hsl(0deg, 0%, 15%);
+  box-shadow: 0 0 5px 0 hsl(0deg, 0%, 0%);
+  height: 36px;
+  position: fixed;
+  width: 100vw;
+  z-index: 999;
+}
+.app .toolbar ul {
+  list-style-type: none;
+  display: flex;
+  color: hsl(0deg, 0%, 76%);
+  border-spacing: 0;
+}
+.app .toolbar ul li {
+  padding: 10px 7px;
+  cursor: pointer;
+}
+.app .toolbar ul li:hover {
+  color: hsl(0deg, 0%, 96%);
+  background-color: hsl(0deg, 0%, 20%);
+}
+.app .toolbar ul li[disabled] {
+  color: hsl(0deg, 0%, 56%);
+  pointer-events: none;
+}
+.app .editor {
+  position: relative;
+  top: 36px;
+  margin: 10px;
+  width: calc(100% - 20px);
+  height: calc(100vh - 56px);
+}/*# sourceMappingURL=main.css.map */
