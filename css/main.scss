@@ -24,7 +24,7 @@ body{
     padding: 0 10px;
     background-color: hsl(0, 0%, 15%);
     box-shadow: 0 0 5px 0 hsl(0, 0%, 0%);
-    height: 36px;
+    min-height: 36px;
     position: fixed;
     width:100vw;
     z-index: 999;
@@ -34,7 +34,7 @@ body{
       color: hsl(0, 0%, 76%);
       border-spacing: 0;
       li{
-
+        text-align: center;
         padding:10px 7px;
         cursor: pointer;
         &:hover{
@@ -55,7 +55,7 @@ body{
     .objects{
       display: none;
       position: relative;
-      top:36px;
+      top:48px;
       width:300px;
 
       height: calc(100vh - 36px);

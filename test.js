@@ -23,4 +23,4 @@ window.RawSVG = data.testSVG
 window.FileName = data.testName
 window.editor = new Editor(data.testSVG)
 window.unblockBtns()
-document.querySelector("#objectsArea").classList.add("show")
+// document.querySelector("#objectsArea").classList.add("show")

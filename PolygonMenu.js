@@ -10,12 +10,16 @@ export default class PolygonMenu {
     this.refreshMenu()
 
   }
-
-  idClickHandler = ({ target }) => {
+  deselect = () => {
     if (this.activeElement !== null) this.activeElement.classList.remove("active")
+    this.activeElement == null
+  }
+  idClickHandler = ({ target }) => {
+
+
+    window.editor.selectPolygon(target.index)
     this.activeElement = target.parentElement
     this.activeElement.classList.add("active")
-    window.editor.selectPolygon(target.index)
   }
   updatePoint = ({ x, y }, pid, id) => {
     const o = this.DOM.querySelector(`ul#${pid}>li:nth-child(${id + 1})`)

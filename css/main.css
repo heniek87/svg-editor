@@ -28,7 +28,7 @@ body {
   padding: 0 10px;
   background-color: hsl(0deg, 0%, 15%);
   box-shadow: 0 0 5px 0 hsl(0deg, 0%, 0%);
-  height: 36px;
+  min-height: 36px;
   position: fixed;
   width: 100vw;
   z-index: 999;
@@ -40,6 +40,7 @@ body {
   border-spacing: 0;
 }
 .app .toolbar ul li {
+  text-align: center;
   padding: 10px 7px;
   cursor: pointer;
 }
@@ -59,7 +60,7 @@ body {
 .app .content .objects {
   display: none;
   position: relative;
-  top: 36px;
+  top: 48px;
   width: 300px;
   height: calc(100vh - 36px);
   background-color: hsl(0deg, 0%, 15%);

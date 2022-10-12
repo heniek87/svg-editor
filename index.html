@@ -6,6 +6,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SVG Editor</title>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
   <link rel="stylesheet" href="css/main.css">
   <script type="module" src="Editor.js"></script>
 </head>
@@ -15,14 +17,46 @@
     <div class="toolbar">
       <ul>
         <!-- <li disabled>New</li> -->
-        <li id="openFileBtn">Open</li>
-        <li disabled id="saveFileBtn">Save</li>
-        <li disabled id="importImageBtn">Import image</li>
-        <li disabled>Zoom in</li>
-        <li disabled>Zoom out</li>
-        <li disabled>Add polygon</li>
-        <li disabled id="viewToggleBtn">View Toggle</li>
-        <li disabled id="showObjectsBtn">Show Objects</li>
+        <li id="openFileBtn">
+          <span class="material-symbols-outlined">
+            file_open
+          </span>
+        </li>
+        <li disabled id="saveFileBtn">
+          <span class="material-symbols-outlined">
+            save
+          </span>
+        </li>
+        <li disabled id="importImageBtn">
+          <span class="material-symbols-outlined">
+            image
+          </span>
+        </li>
+        <li disabled>
+          <span class="material-symbols-outlined">
+            zoom_in
+          </span>
+        </li>
+        <li disabled>
+          <span class="material-symbols-outlined">
+            zoom_out
+          </span>
+        </li>
+        <li disabled>
+          <span class="material-symbols-outlined">
+            pentagon
+          </span>
+        </li>
+        <li disabled id="viewToggleBtn">
+          <span class="material-symbols-outlined">
+            visibility
+          </span>
+        </li>
+        <li disabled id="showObjectsBtn">
+          <span class="material-symbols-outlined">
+            layers
+          </span>
+        </li>
       </ul>
       <script type="module" src="menu.js" defer></script>
     </div>

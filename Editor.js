@@ -28,7 +28,7 @@ export default class Editor {
     this.image = image
     this.DOMEditor.appendChild(this.svg)
     this.readPolygons()
-
+    this.svg.addEventListener('click', this.unselectAll)
   }
   refresh = () => {
     this.DOMEditor.innerHTML = this.svg.outerHTML
@@ -52,9 +52,17 @@ export default class Editor {
     })
 
   }
-  selectPolygon = ind => {
+  unselectAll = ({ target: { tagName } }) => {
+    if (tagName == 'image') this.deselectPolygon()
+  }
+  deselectPolygon = () => {
     this.svg.querySelectorAll("circle.pointHelper").forEach(p => p.remove())
     if (!isNaN(this.selectedPolygon)) this.polygons[this.selectedPolygon].lowLight()
+    this.selectedPolygon = NaN
+    this.polygonMenu.deselect()
+  }
+  selectPolygon = ind => {
+    this.deselectPolygon()
     this.selectedPolygon = ind
     this.polygons[ind].highLight()
     this.polygons[ind].points.forEach((p, i) => {
