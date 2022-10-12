@@ -9,6 +9,10 @@
 body {
   background-color: hsl(0deg, 0%, 20%);
   color: hsl(0deg, 0%, 96%);
+  background-image: url("../imgs/background.jpg");
+  background-repeat: none;
+  background-size: cover;
+  background-position: center;
 }
 
 .helpers {
@@ -47,6 +51,53 @@ body {
   color: hsl(0deg, 0%, 56%);
   pointer-events: none;
 }
+.app .content {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+}
+.app .content .objects {
+  display: none;
+  position: relative;
+  top: 36px;
+  width: 300px;
+  height: calc(100vh - 36px);
+  background-color: hsl(0deg, 0%, 15%);
+  box-shadow: 0 0 15px 0 hsl(0deg, 0%, 0%);
+}
+.app .content .objects.show {
+  display: block;
+}
+.app .content .objects h3 {
+  font-weight: 400;
+  text-align: center;
+  margin: 10px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid hsl(0deg, 0%, 76%);
+}
+.app .content .objects ul {
+  list-style-type: none;
+  margin: 15px 10px;
+}
+.app .content .objects ul li {
+  display: flex;
+  cursor: pointer;
+  align-items: flex-star;
+  justify-content: flex-start;
+  color: hsl(0deg, 0%, 76%);
+}
+.app .content .objects ul li.active {
+  color: hsl(100deg, 100%, 50%);
+}
+.app .content .objects ul li.active:hover {
+  color: hsl(100deg, 100%, 50%);
+}
+.app .content .objects ul li details {
+  margin-left: 10px;
+}
+.app .content .objects ul li:hover {
+  color: hsl(0deg, 0%, 96%);
+}
 .app .editor {
   position: relative;
   top: 36px;
@@ -60,4 +111,52 @@ body {
 .app .editor svg {
   max-width: 100%;
   max-height: 100%;
+}
+.app .editor svg polygon {
+  fill: hsl(100deg, 100%, 50%);
+  fill-opacity: 0.5;
+  stroke: hsl(0deg, 0%, 0%);
+}
+.app .editor svg polygon.active {
+  stroke: hsl(0deg, 100%, 50%);
+}
+.app .editor svg polygon.over {
+  fill-opacity: 1;
+}
+@-webkit-keyframes flashPolygon {
+  0% {
+    fill: hsl(100deg, 100%, 50%);
+  }
+  50% {
+    fill: hsl(100deg, 100%, 0%);
+  }
+  100% {
+    fill: hsl(100deg, 100%, 50%);
+  }
+}
+@keyframes flashPolygon {
+  0% {
+    fill: hsl(100deg, 100%, 50%);
+  }
+  50% {
+    fill: hsl(100deg, 100%, 0%);
+  }
+  100% {
+    fill: hsl(100deg, 100%, 50%);
+  }
+}
+.app .editor svg circle.pointHelper {
+  fill: hsla(0deg, 100%, 50%, 0);
+}
+.app .editor svg circle.pointHelper:hover:not(.active) {
+  fill: hsl(0deg, 100%, 50%);
+}
+.app .editor.view svg > polygon {
+  stroke-width: 0;
+  opacity: 0;
+  transition: opacity 0.2s;
+  cursor: pointer;
+}
+.app .editor.view svg > polygon:hover {
+  opacity: 1;
 }/*# sourceMappingURL=main.css.map */

@@ -5,9 +5,9 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="css/main.min.css">
-  <script src="Editor.js"></script>
+  <title>SVG Editor</title>
+  <link rel="stylesheet" href="css/main.css">
+  <script type="module" src="Editor.js"></script>
 </head>
 
 <body>
@@ -17,15 +17,24 @@
         <!-- <li disabled>New</li> -->
         <li id="openFileBtn">Open</li>
         <li disabled id="saveFileBtn">Save</li>
-        <li disabled id="importImage">Import image</li>
+        <li disabled id="importImageBtn">Import image</li>
         <li disabled>Zoom in</li>
         <li disabled>Zoom out</li>
         <li disabled>Add polygon</li>
+        <li disabled id="viewToggleBtn">View Toggle</li>
+        <li disabled id="showObjectsBtn">Show Objects</li>
       </ul>
-      <script src="menu.js" defer></script>
+      <script type="module" src="menu.js" defer></script>
     </div>
-    <div class="editor" id="editor">
+    <div class="content">
 
+      <div class="editor" id="editor">
+
+      </div>
+      <div class="objects" id="objectsArea">
+        <h3>Polygons</h3>
+        <ul id="polygonObjects"></ul>
+      </div>
     </div>
   </div>
   <div class="helpers">
@@ -36,8 +45,8 @@
   </div>
 
 
-
-  <script defer src="test.js"></script>
+  <script src="./PointHelper.js"></script>
+  <script type="module" defer src="test.js"></script>
 </body>
 
 </html>

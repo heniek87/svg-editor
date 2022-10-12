@@ -1,57 +1,22 @@
+import { importImage, openFile, saveFile } from "./Files.js"
 
 
-let RawSVG = ""
-let FileName = ""
-const unblockBtns = () => {
+window.RawSVG = ""
+window.FileName = ""
+window.editor = null
+window.unblockBtns = () => {
   document.querySelector("#saveFileBtn").removeAttribute("disabled")
-  document.querySelector("#importImage").removeAttribute("disabled")
+  document.querySelector("#importImageBtn").removeAttribute("disabled")
+  document.querySelector("#viewToggleBtn").removeAttribute("disabled")
+  document.querySelector("#showObjectsBtn").removeAttribute("disabled")
 
 }
-const readFile = ({ target: { files: [file] } }) => {
-  const { name } = file
-  const reader = new FileReader()
-  reader.onloadend = ({ target }) => {
-    RawSVG = target.result
-    FileName = name
-    window.editor = new Editor()
-    unblockBtns()
-  }
-  reader.readAsText(file)
 
-}
-const readImageFile = ({ target: { files: [file] } }) => {
-  const { name, type } = file
-  const reader = new FileReader()
-  reader.onloadend = ({ target }) => {
-    // let u = URL.createObjectURL(new Blob([RawSVG], { type }))
-
-    window.editor.setTmpImgSrc(target.result)
-  }
-  reader.readAsDataURL(file)
-
-}
-const openFile = () => {
-
-  const fileHelper = document.querySelector('#fileOpenHelper')
-  fileHelper.click()
-  fileHelper.addEventListener('change', readFile)
-}
-const saveFile = () => {
-  let u = URL.createObjectURL(new Blob([RawSVG], { type: "image/svg+xml" }))
-  const helper = document.querySelector("#fileSaveHelper")
-  helper.download = FileName
-  helper.href = u
-  helper.click()
-}
-
-const importImage = () => {
-  const imageFileHelper = document.querySelector('#imageFileHelper')
-  imageFileHelper.click()
-  imageFileHelper.addEventListener('change', readImageFile)
-}
 
 // events
 
 document.querySelector("#openFileBtn").addEventListener("click", openFile)
 document.querySelector("#saveFileBtn").addEventListener("click", saveFile)
-document.querySelector("#importImage").addEventListener("click", importImage)
+document.querySelector("#importImageBtn").addEventListener("click", importImage)
+document.querySelector("#viewToggleBtn").addEventListener("click", () => editor.DOMEditor.classList.toggle("view"))
+document.querySelector("#showObjectsBtn").addEventListener("click", () => document.querySelector("#objectsArea").classList.toggle("show"))
