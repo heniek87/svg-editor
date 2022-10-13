@@ -11,6 +11,8 @@ export default class Editor {
     this.RawSvg = RawSVG
     this.DOMEditor = document.querySelector("#editor")
     this.ZoomBox = new ZoomBox()
+    this.zoomUpdateObject = document.createElementNS("http://www.w3.org/2000/svg", "g")
+    this.zoomUpdateObject.id = 'zoomUpdateObject'
     this.ZoomBox.change(zoom => {
       this.zoom = zoom
       this.updateZoomEditor()
@@ -33,12 +35,55 @@ export default class Editor {
     })
     this.image = image
     this.DOMEditor.appendChild(this.svg)
+    const { width, height } = this.svg.getBoundingClientRect()
+    this.rect = document.querySelector('#rect')
+    this.rect.style.width = `${width}px`
+    this.rect.style.height = `${height}px`
+
     this.readPolygons()
     this.svg.addEventListener('click', this.unselectAll)
+    this.svg.addEventListener("wheel", this.wheelHandler)
   }
-  updateZoomEditor = () => { // DOMOKczyć
+  wheelHandler = evt => {
+    evt.preventDefault()
+    if (evt.altKey) {
+      let { deltaY } = evt
+      deltaY = deltaY / 1000
+      this.ZoomBox.setZoom(this.zoom - deltaY)
+
+    }
+    let scrollLvl = 0.1
+    if (evt.shiftKey) scrollLvl = 1
+    if (evt.ctrlKey) {
+      this.DOMEditor.scrollTo(this.DOMEditor.scrollLeft + evt.deltaY * scrollLvl, this.DOMEditor.scrollTop)
+    }
+    // this.DOMEditor.scrollTop()
+    if (!evt.ctrlKey && !evt.altKey) {
+
+      this.DOMEditor.scrollTo(this.DOMEditor.scrollLeft, this.DOMEditor.scrollTop + evt.deltaY * scrollLvl)
+    }
+  }
+  updateZoomEditor = () => {
     this.svg.style.transform = `scale(${this.zoom})`
-    this.svg.setAttributeNS(null, "test", this.zoom)
+    this.rect.style.transform = `scale(${this.zoom}) translate(-50%,-50%)`
+    this.svg.appendChild(this.zoomUpdateObject)
+
+
+    let { left, top } = this.rect.getBoundingClientRect()
+
+    // console.log(left, top)
+
+    this.svg.style.transformOrigin = `${top < 36 ? "top" : "center"} ${left < 10 ? "left" : "center"}`
+    if (left < 0) this.DOMEditor.style.justifyContent = "flex-start"
+    else this.DOMEditor.style.justifyContent = "center"
+
+    if (top < 36) this.DOMEditor.style.alignItems = "flex-start"
+    else this.DOMEditor.style.alignItems = "center"
+    clearTimeout(this.gHelper)
+    this.gHelper = setTimeout(() => {
+      this.zoomUpdateObject.remove()
+    }, 100)
+    if (!isNaN(this.selectedPolygon)) this.selectPolygon(this.selectedPolygon)
   }
   refresh = () => {
     this.DOMEditor.innerHTML = this.svg.outerHTML
@@ -76,7 +121,7 @@ export default class Editor {
     this.selectedPolygon = ind
     this.polygons[ind].highLight()
     this.polygons[ind].points.forEach((p, i) => {
-      this.svg.appendChild(new PointHelper(p, this.svg, this.polygons[ind], i, this.polygonMenu))
+      this.svg.appendChild(new PointHelper(p, 10 / this.zoom, this.svg, this.polygons[ind], i, this.polygonMenu))
     })
   }
 

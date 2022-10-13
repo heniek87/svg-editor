@@ -20,4 +20,10 @@ document.querySelector("#openFileBtn").addEventListener("click", openFile)
 document.querySelector("#saveFileBtn").addEventListener("click", saveFile)
 document.querySelector("#importImageBtn").addEventListener("click", importImage)
 document.querySelector("#viewToggleBtn").addEventListener("click", () => editor.DOMEditor.classList.toggle("view"))
-document.querySelector("#showObjectsBtn").addEventListener("click", () => document.querySelector("#objectsArea").classList.toggle("show"))
+document.querySelector("#showObjectsBtn").addEventListener("click", () => {
+  document.querySelector("#objectsArea").classList.toggle("show")
+  const { width, height } = editor.svg.getBoundingClientRect()
+  editor.rect = document.querySelector('#rect')
+  editor.rect.style.width = `${width}px`
+  editor.rect.style.height = `${height}px`
+})

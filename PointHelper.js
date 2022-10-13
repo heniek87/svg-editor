@@ -1,6 +1,6 @@
 class PointHelper {
   active = false
-  constructor({ x, y }, svg, polygon, id, polygonMenu) {
+  constructor({ x, y }, w, svg, polygon, id, polygonMenu) {
     this.id = id
     this.polygon = polygon
     this.polygonMenu = polygonMenu
@@ -9,7 +9,7 @@ class PointHelper {
     this.point = document.createElementNS("http://www.w3.org/2000/svg", "circle")
     this.point.setAttribute("cx", x)
     this.point.setAttribute("cy", y)
-    this.point.setAttribute("r", 10)
+    this.point.setAttribute("r", w)
     this.point.classList.add('pointHelper')
     // this.point.addEventListener("click", () => console.log("test", x, y))
     this.point.addEventListener("mousedown", this.setActive)

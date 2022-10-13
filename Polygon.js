@@ -28,7 +28,7 @@ export default class Polygon {
     this.DOM.classList.add("active")
   }
   lowLight = () => {
-    console.log('llowlight')
+
     this.DOM.classList.remove("active")
   }
 }
