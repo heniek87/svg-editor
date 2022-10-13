@@ -1,14 +1,20 @@
 // import PointHelper from "./PointHelper.js"
 import Polygon from "./Polygon.js"
 import PolygonMenu from "./PolygonMenu.js"
-
+import ZoomBox from "./ZoomBox.js"
 export default class Editor {
   tmpImg = false
   polygons = []
+  zoom = 1
   selectedPolygon = NaN
   constructor(RawSVG) {
     this.RawSvg = RawSVG
     this.DOMEditor = document.querySelector("#editor")
+    this.ZoomBox = new ZoomBox()
+    this.ZoomBox.change(zoom => {
+      this.zoom = zoom
+      this.updateZoomEditor()
+    })
     this.polygonMenu = new PolygonMenu()
     this.editorHelper = document.querySelector("#editorHelper")
     this.editorHelper.innerHTML = this.RawSvg
@@ -29,6 +35,10 @@ export default class Editor {
     this.DOMEditor.appendChild(this.svg)
     this.readPolygons()
     this.svg.addEventListener('click', this.unselectAll)
+  }
+  updateZoomEditor = () => { // DOMOKczyć
+    this.svg.style.transform = `scale(${this.zoom})`
+    this.svg.setAttributeNS(null, "test", this.zoom)
   }
   refresh = () => {
     this.DOMEditor.innerHTML = this.svg.outerHTML

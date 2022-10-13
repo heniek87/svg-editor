@@ -53,16 +53,35 @@ body {
   pointer-events: none;
 }
 .app .content {
+  position: relative;
   flex: 1;
   display: flex;
   flex-direction: row;
+}
+.app .content .zoomBox {
+  position: absolute;
+  top: 56px;
+  left: 8px;
+  width: 300px;
+  display: flex;
+}
+.app .content .zoomBox .material-symbols-outlined {
+  font-weight: 300;
+  cursor: pointer;
+  color: hsl(0deg, 0%, 76%);
+}
+.app .content .zoomBox .material-symbols-outlined:hover {
+  color: hsl(0deg, 0%, 96%);
+}
+.app .content .zoomBox[disabled] {
+  display: none;
 }
 .app .content .objects {
   display: none;
   position: relative;
   top: 48px;
   width: 300px;
-  height: calc(100vh - 36px);
+  height: calc(100vh - 48px);
   background-color: hsl(0deg, 0%, 15%);
   box-shadow: 0 0 15px 0 hsl(0deg, 0%, 0%);
 }
@@ -87,6 +106,9 @@ body {
   justify-content: flex-start;
   color: hsl(0deg, 0%, 76%);
 }
+.app .content .objects ul li ul {
+  font-size: small;
+}
 .app .content .objects ul li.active {
   color: hsl(100deg, 100%, 50%);
 }
@@ -102,6 +124,7 @@ body {
 .app .editor {
   position: relative;
   top: 36px;
+  overflow: auto;
   margin: 10px;
   width: calc(100% - 20px);
   height: calc(100vh - 56px);
@@ -112,6 +135,8 @@ body {
 .app .editor svg {
   max-width: 100%;
   max-height: 100%;
+  transform-origin: top left;
+  transform: scale(1);
 }
 .app .editor svg polygon {
   fill: hsl(100deg, 100%, 50%);

@@ -9,6 +9,7 @@ window.unblockBtns = () => {
   document.querySelector("#importImageBtn").removeAttribute("disabled")
   document.querySelector("#viewToggleBtn").removeAttribute("disabled")
   document.querySelector("#showObjectsBtn").removeAttribute("disabled")
+  document.querySelector("#zoomBox").removeAttribute("disabled")
 
 }
 
