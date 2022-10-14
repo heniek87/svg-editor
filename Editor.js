@@ -65,7 +65,7 @@ export default class Editor {
   }
   updateZoomEditor = () => {
     this.svg.style.transform = `scale(${this.zoom})`
-    this.rect.style.transform = `scale(${this.zoom}) translate(-50%,-50%)`
+    this.rect.style.transform = `translate(-50%,-50%) scale(${this.zoom})`
     this.svg.appendChild(this.zoomUpdateObject)
 
 
