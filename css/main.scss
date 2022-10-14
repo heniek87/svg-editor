@@ -49,11 +49,60 @@ body{
       }
     }
   }
+
+  .settings{
+    position: absolute;
+    top:30%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    width: 400px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: hsl(0, 0%, 15%);
+    z-index: 1000;
+    border: 1px solid hsl(0, 0%, 56%);
+    box-shadow: 5px 3px 15px 0 hsl(0, 0%, 5%);
+    padding: 20px 10px;
+    padding-top: 0;
+    #closeBtn{
+      position: absolute;
+      right:10px;
+      top:10px;
+      cursor: pointer;
+      &:hover{
+        color: hsl(0, 100%, 50%);
+      }
+    }
+    div{
+      text-align: left;
+      width: 250px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      >input{
+        width:50px;
+        font-size: large;
+        color: hsl(0, 0%, 76%);
+        background-color: hsl(0, 0%, 15%);
+        border: none;
+        border-bottom: 1px solid hsl(0, 0%, 76%);
+        text-align: center;
+      }
+    }
+    h2{
+      font-weight: 400;
+      margin: 0;
+    }
+  }
   .content{
     position: relative;
     flex:1;
     display: flex;
     flex-direction: row;
+
     .zoomBox{
       position: absolute;
       top: 56px;
@@ -69,9 +118,7 @@ body{
           color: hsl(0, 0%, 96%);
         }
       }
-      &[disabled]{
-        display: none;
-      }
+
     }
     .objects{
       display: none;
@@ -187,5 +234,8 @@ body{
         }
       }
     }
+  }
+  [disabled]{
+    display: none;
   }
 }

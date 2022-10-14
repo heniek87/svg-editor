@@ -7,6 +7,8 @@ export default class Editor {
   polygons = []
   zoom = 1
   selectedPolygon = NaN
+  DOT_SIZE = 10
+  POLYGON_BORDER_WIDTH = 1
   constructor(RawSVG) {
     this.RawSvg = RawSVG
     this.DOMEditor = document.querySelector("#editor")
@@ -65,7 +67,7 @@ export default class Editor {
   }
   updateZoomEditor = () => {
     this.svg.style.transform = `scale(${this.zoom})`
-    this.rect.style.transform = `scale(${this.zoom}) translate(-50%,-50%)`
+    this.rect.style.transform = `translate(-50%,-50%) scale(${this.zoom})`
     this.svg.appendChild(this.zoomUpdateObject)
 
 
@@ -107,6 +109,10 @@ export default class Editor {
     })
 
   }
+  setBorderWidth = value => {
+    this.POLYGON_BORDER_WIDTH = parseFloat(value)
+    document.querySelector('#polygonWidth').innerHTML = `polygon{stroke-width:${this.POLYGON_BORDER_WIDTH};}`
+  }
   unselectAll = ({ target: { tagName } }) => {
     if (tagName == 'image') this.deselectPolygon()
   }
@@ -116,12 +122,17 @@ export default class Editor {
     this.selectedPolygon = NaN
     this.polygonMenu.deselect()
   }
+  setDotSize = (value) => {
+    this.DOT_SIZE = parseFloat(value)
+    if (!isNaN(this.selectedPolygon)) this.selectPolygon(this.selectedPolygon)
+  }
+
   selectPolygon = ind => {
     this.deselectPolygon()
     this.selectedPolygon = ind
     this.polygons[ind].highLight()
     this.polygons[ind].points.forEach((p, i) => {
-      this.svg.appendChild(new PointHelper(p, 10 / this.zoom, this.svg, this.polygons[ind], i, this.polygonMenu))
+      this.svg.appendChild(new PointHelper(p, this.DOT_SIZE / this.zoom, this.svg, this.polygons[ind], i, this.polygonMenu))
     })
   }
 

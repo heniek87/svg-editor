@@ -47,6 +47,11 @@
             layers
           </span>
         </li>
+        <li id="settingsBtn">
+          <span class="material-symbols-outlined">
+            settings
+          </span>
+        </li>
       </ul>
       <script type="module" src="menu.js" defer></script>
     </div>
@@ -69,8 +74,27 @@
         </span>
       </div>
     </div>
+    <div class="settings" disabled id="settings">
+      <span id="closeBtn" class="material-symbols-outlined">
+        close
+      </span>
+      <h2>Settings</h2>
+      <div class="dotSize">
+        <label for="dotSize">Dot points size</label>
+        <input type="number" id="dotSize" min="1" step="1" value="10" />
+      </div>
+      <div class="borderWidth">
+        <label for="borderWidth">Polygon border width</label>
+        <input type="number" id="borderWidth" min="1" step="1" value="1" />
+      </div>
+    </div>
   </div>
   <div class="helpers">
+    <style id="polygonWidth">
+      polygon {
+        stroke-width: 1;
+      }
+    </style>
     <input type="file" id="fileOpenHelper" accept="image/svg+xml">
     <input type="file" id="imageFileHelper" accept=".jpg,.gif,.png">
     <a href="" id="fileSaveHelper"></a>
