@@ -6,9 +6,10 @@ export default class Editor {
   tmpImg = false
   polygons = []
   zoom = 1
+  pointHelpers = []
   selectedPolygon = NaN
-  DOT_SIZE = 10
-  POLYGON_BORDER_WIDTH = 1
+  DOT_SIZE = localStorage["DOT_SIZE"] | 10
+  POLYGON_BORDER_WIDTH = localStorage["POLYGON_BORDER_WIDTH"] | 1
   constructor(RawSVG) {
     this.RawSvg = RawSVG
     this.DOMEditor = document.querySelector("#editor")
@@ -45,6 +46,7 @@ export default class Editor {
     this.readPolygons()
     this.svg.addEventListener('click', this.unselectAll)
     this.svg.addEventListener("wheel", this.wheelHandler)
+    this.setDefaultSettings()
   }
   wheelHandler = evt => {
     evt.preventDefault()
@@ -64,6 +66,13 @@ export default class Editor {
 
       this.DOMEditor.scrollTo(this.DOMEditor.scrollLeft, this.DOMEditor.scrollTop + evt.deltaY * scrollLvl)
     }
+  }
+  setDefaultSettings = () => {
+    this.setBorderWidth(this.POLYGON_BORDER_WIDTH)
+    this.setDotSize(this.DOT_SIZE)
+    document.querySelector(".settings #dotSize").value = this.DOT_SIZE
+    document.querySelector(".settings #borderWidth").value = this.POLYGON_BORDER_WIDTH
+
   }
   updateZoomEditor = () => {
     this.svg.style.transform = `scale(${this.zoom})`
@@ -101,7 +110,7 @@ export default class Editor {
 
   readPolygons = () => {
     this.svg.querySelectorAll("polygon").forEach((p, i) => {
-      const object = new Polygon(p)
+      const object = new Polygon(p, i)
 
       this.polygons.push(object)
       this.polygonMenu.push(object)
@@ -111,12 +120,15 @@ export default class Editor {
   }
   setBorderWidth = value => {
     this.POLYGON_BORDER_WIDTH = parseFloat(value)
+    localStorage["POLYGON_BORDER_WIDTH"] = parseFloat(value)
     document.querySelector('#polygonWidth').innerHTML = `polygon{stroke-width:${this.POLYGON_BORDER_WIDTH};}`
   }
   unselectAll = ({ target: { tagName } }) => {
     if (tagName == 'image') this.deselectPolygon()
   }
   deselectPolygon = () => {
+    this.pointHelpers = []
+    this.polygons.forEach(p => p.dragUnListen())
     this.svg.querySelectorAll("circle.pointHelper").forEach(p => p.remove())
     if (!isNaN(this.selectedPolygon)) this.polygons[this.selectedPolygon].lowLight()
     this.selectedPolygon = NaN
@@ -124,6 +136,7 @@ export default class Editor {
   }
   setDotSize = (value) => {
     this.DOT_SIZE = parseFloat(value)
+    localStorage["DOT_SIZE"] = parseFloat(value)
     if (!isNaN(this.selectedPolygon)) this.selectPolygon(this.selectedPolygon)
   }
 
@@ -133,8 +146,11 @@ export default class Editor {
     this.polygons[ind].highLight()
     this.polygons[ind].points.forEach((p, i) => {
       let helper = new PointHelper(p, this.DOT_SIZE / this.zoom, this.svg, this.polygons[ind], i, this.polygonMenu)
-      this.svg.appendChild(helper)
+      this.pointHelpers.push(helper)
+
+      this.svg.appendChild(helper.obj())
     })
+    this.polygons[ind].dragListen()
   }
 
 

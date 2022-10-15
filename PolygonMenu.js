@@ -11,6 +11,7 @@ export default class PolygonMenu {
     this.refreshMenu()
 
   }
+
   deselect = () => {
     if (this.activeElement !== null) this.activeElement.classList.remove("active")
     this.activeElement = null
@@ -23,18 +24,16 @@ export default class PolygonMenu {
     this.activeInd = target.index
     this.activeElement = target.parentElement
     this.activeElement.classList.add("active")
+
   }
   updatePoint = ({ x, y }, pid, id) => {
     const o = this.DOM.querySelector(`ul#${pid}>li:nth-child(${id + 1})`)
     o.innerHTML = `{ x: ${x}, y: ${y} }`
 
   }
-  removePoint = (pid, id) => {
-    // this.DOM.querySelector(`ul#${pid}>li:nth-child(${id + 1})`).remove()
-    // this.objects.find(i=>i==pid).
-    // this.activeElement = this.DOM.querySelector(`ul#${pid}`).parentElements
-
-    // this.refreshMenu()
+  removePoint = (pid) => {
+    this.refreshMenu()
+    this.idClickHandler({ target: this.DOM.querySelector(`div#${pid}`) })
   }
   over = o => {
     o.DOM.classList.add("over")
@@ -50,6 +49,7 @@ export default class PolygonMenu {
       const li = document.createElement('li')
       const idObj = document.createElement('div')
       idObj.innerHTML = `#${o.id}`
+      idObj.id = o.id
       idObj.index = index
       idObj.addEventListener('click', this.idClickHandler)
       o.DOM.addEventListener('click', () => this.idClickHandler({ target: idObj }))

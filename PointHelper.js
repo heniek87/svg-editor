@@ -2,6 +2,8 @@ class PointHelper {
   active = false
   constructor({ x, y }, w, svg, polygon, id, polygonMenu) {
     this.id = id
+    this.x = x
+    this.y = y
     this.polygon = polygon
     this.polygonMenu = polygonMenu
     this.svg = svg
@@ -17,10 +19,14 @@ class PointHelper {
     this.point.addEventListener("click", this.remove)
     // this.point.addEventListener("mouseout", this.removeActive)
 
-    return this.point
+
   }
+
+  obj = () => this.point
+  hide = () => this.point.style.pointerEvents = "none"
   move = (evt) => {
     let { x, y } = this.getMousePosition(evt)
+
     x = Math.round(x * 10) / 10
     y = Math.round(y * 10) / 10
 
@@ -30,10 +36,11 @@ class PointHelper {
     this.polygonMenu.updatePoint({ x, y }, this.polygon.id, this.id)
 
   }
+
   remove = evt => {
     if (evt.ctrlKey) {
       this.polygon.removePoint(this.id)
-      this.polygonMenu.removePoint(this.polygon.id, this.id)
+      this.polygonMenu.removePoint(this.polygon.id)
 
     }
   }
@@ -54,9 +61,10 @@ class PointHelper {
   }
   getMousePosition = ({ clientX, clientY }) => {
     const { e, f, a, d } = this.svg.getScreenCTM();
+
     return {
       x: (clientX - e) / a,
       y: (clientY - f) / d
-    };
+    }
   }
 }
