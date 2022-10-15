@@ -17,6 +17,8 @@ window.unblockBtns = () => {
 // events
 
 document.querySelector("#openFileBtn").addEventListener("click", openFile)
+document.querySelector("#settingsBtn").addEventListener("click", () => document.querySelector('#settings').removeAttribute("disabled"))
+document.querySelector(".settings>#closeBtn").addEventListener("click", () => document.querySelector('#settings').setAttribute("disabled", ""))
 document.querySelector("#saveFileBtn").addEventListener("click", saveFile)
 document.querySelector("#importImageBtn").addEventListener("click", importImage)
 document.querySelector("#viewToggleBtn").addEventListener("click", () => editor.DOMEditor.classList.toggle("view"))
@@ -27,3 +29,5 @@ document.querySelector("#showObjectsBtn").addEventListener("click", () => {
   editor.rect.style.width = `${width}px`
   editor.rect.style.height = `${height}px`
 })
+document.querySelector(".settings #dotSize").addEventListener("input", ({ target: { value } }) => editor.setDotSize(value))
+document.querySelector(".settings #borderWidth").addEventListener("input", ({ target: { value } }) => editor.setBorderWidth(value))

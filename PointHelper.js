@@ -29,6 +29,9 @@ class PointHelper {
     this.polygonMenu.updatePoint({ x, y }, this.polygon.id, this.id)
 
   }
+  remove = evt => {
+    this.polygon.removePoint(this.id)
+  }
   setActive = () => {
     this.point.classList.add('active')
     this.svg.addEventListener("mousemove", this.move)
