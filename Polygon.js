@@ -1,6 +1,7 @@
 export default class Polygon {
   id = 15
   points = []
+  pointsHelpers = []
   constructor(obj) {
     this.id = obj.id
     this.DOM = obj
@@ -19,10 +20,13 @@ export default class Polygon {
   }
   updatePoint = (coords, i) => {
     this.points[i] = coords
+    this.refresh()
 
-
-    this.DOM.setAttributeNS(null, "points", this.pointsToString())
-
+  }
+  refresh = () => this.DOM.setAttributeNS(null, "points", this.pointsToString())
+  removePoint = i => {
+    this.points.splice(i, 1)
+    this.refresh()
   }
   highLight = () => {
     this.DOM.classList.add("active")

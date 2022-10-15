@@ -1,6 +1,7 @@
 export default class PolygonMenu {
   objects = []
   activeElement = null
+  activeInd = NaN
   constructor() {
     this.DOM = document.querySelector("#polygonObjects")
 
@@ -12,12 +13,14 @@ export default class PolygonMenu {
   }
   deselect = () => {
     if (this.activeElement !== null) this.activeElement.classList.remove("active")
-    this.activeElement == null
+    this.activeElement = null
+    this.activeInd = NaN
   }
   idClickHandler = ({ target }) => {
 
 
     window.editor.selectPolygon(target.index)
+    this.activeInd = target.index
     this.activeElement = target.parentElement
     this.activeElement.classList.add("active")
   }
@@ -25,6 +28,13 @@ export default class PolygonMenu {
     const o = this.DOM.querySelector(`ul#${pid}>li:nth-child(${id + 1})`)
     o.innerHTML = `{ x: ${x}, y: ${y} }`
 
+  }
+  removePoint = (pid, id) => {
+    // this.DOM.querySelector(`ul#${pid}>li:nth-child(${id + 1})`).remove()
+    // this.objects.find(i=>i==pid).
+    // this.activeElement = this.DOM.querySelector(`ul#${pid}`).parentElements
+
+    // this.refreshMenu()
   }
   over = o => {
     o.DOM.classList.add("over")
@@ -58,5 +68,9 @@ export default class PolygonMenu {
     })
 
     this.DOM.appendChild(ul)
+    // if (!isNaN(this.activeInd)) {
+    //   this.activeElement = this.DOM.children[this.activeInd]
+    //   this.activeElement.classList.add("active")
+    // }
   }
 }

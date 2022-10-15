@@ -14,6 +14,7 @@ class PointHelper {
     // this.point.addEventListener("click", () => console.log("test", x, y))
     this.point.addEventListener("mousedown", this.setActive)
     this.point.addEventListener("mouseup", this.removeActive)
+    this.point.addEventListener("click", this.remove)
     // this.point.addEventListener("mouseout", this.removeActive)
 
     return this.point
@@ -30,7 +31,14 @@ class PointHelper {
 
   }
   remove = evt => {
-    this.polygon.removePoint(this.id)
+    if (evt.ctrlKey) {
+      this.polygon.removePoint(this.id)
+      this.polygonMenu.removePoint(this.polygon.id, this.id)
+
+    }
+  }
+  removeListen = cb => {
+    cb(true)
   }
   setActive = () => {
     this.point.classList.add('active')

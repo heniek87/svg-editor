@@ -132,7 +132,8 @@ export default class Editor {
     this.selectedPolygon = ind
     this.polygons[ind].highLight()
     this.polygons[ind].points.forEach((p, i) => {
-      this.svg.appendChild(new PointHelper(p, this.DOT_SIZE / this.zoom, this.svg, this.polygons[ind], i, this.polygonMenu))
+      let helper = new PointHelper(p, this.DOT_SIZE / this.zoom, this.svg, this.polygons[ind], i, this.polygonMenu)
+      this.svg.appendChild(helper)
     })
   }
 
