@@ -52,7 +52,13 @@
             settings
           </span>
         </li>
+        <li disabled id="clonePolygon">
+          <span class="material-symbols-outlined">
+            content_copy
+          </span>
+        </li>
       </ul>
+      <div id="filename"></div>
       <script type="module" src="menu.js" defer></script>
     </div>
     <div class="content">
@@ -88,6 +94,16 @@
         <input type="number" id="borderWidth" min="1" step="1" value="1" />
       </div>
     </div>
+
+    <div class="idChanger" disabled id="idChanger">
+      <span id="closeBtnChanger" class="material-symbols-outlined">
+        close
+      </span>
+      <h2>Zmiana identyfikatora</h2>
+      <input type="text" id="idChangerInput" value="" />
+      <!-- <button>Zamknij</button> -->
+    </div>
+
   </div>
   <div class="helpers">
     <style id="polygonWidth">
@@ -100,6 +116,7 @@
     <a href="" id="fileSaveHelper"></a>
     <div id="editorHelper"></div>
   </div>
+  <input type="text" id="editorKeyHelper">
 
 
   <script src="./PointHelper.js"></script>

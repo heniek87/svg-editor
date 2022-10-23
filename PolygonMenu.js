@@ -4,7 +4,8 @@ export default class PolygonMenu {
   activeInd = NaN
   constructor() {
     this.DOM = document.querySelector("#polygonObjects")
-
+    this.idChanger = document.querySelector("#idChanger")
+    this.idChangerInput = document.querySelector("#idChangerInput")
   }
   push = polygon => {
     this.objects.push(polygon)
@@ -27,9 +28,19 @@ export default class PolygonMenu {
 
   }
   updatePoint = ({ x, y }, pid, id) => {
-    const o = this.DOM.querySelector(`ul#${pid}>li:nth-child(${id + 1})`)
-    o.innerHTML = `{ x: ${x}, y: ${y} }`
+    try {
+      const o = this.DOM.querySelector(`ul#${pid}>li:nth-child(${id + 1})`)
+      o.innerHTML = `{ x: ${x}, y: ${y} }`
 
+    } catch (e) {
+      debugger;
+    }
+
+  }
+  remove = index => {
+    this.objects.splice(index, 1)
+    this.deselect()
+    this.refreshMenu()
   }
   removePoint = (pid) => {
     this.refreshMenu()
@@ -40,6 +51,27 @@ export default class PolygonMenu {
   }
   out = o => {
     o.DOM.classList.remove("over")
+  }
+  changeId = (idObj, polygon) => {
+    console.log(idObj, polygon)
+    this.idChanger.removeAttribute("disabled")
+    const ul = this.DOM.querySelector(`ul#${polygon.id}`)
+    const change = ({ target: { value } }) => {
+      idObj.id = value
+      idObj.innerHTML = `#${value}`
+      polygon.id = value
+      polygon.DOM.setAttributeNS("http://www.w3.org/2000/svg", "id", value)
+      ul.id = value
+    }
+    this.idChangerInput.value = polygon.id
+    this.idChangerInput.select()
+    this.idChangerInput.focus()
+    this.idChangerInput.oninput = change
+    this.idChangerInput.onkeyup = ({ key }) => {
+      if (key == "Enter") this.idChanger.setAttribute("disabled", "")
+    }
+    this.idChanger.querySelector("#closeBtnChanger").onclick = () => this.idChanger.setAttribute("disabled", "")
+
   }
   refreshMenu = () => {
     this.DOM.innerHTML = ''
@@ -52,13 +84,24 @@ export default class PolygonMenu {
       idObj.id = o.id
       idObj.index = index
       idObj.addEventListener('click', this.idClickHandler)
-      o.DOM.addEventListener('click', () => this.idClickHandler({ target: idObj }))
+      const polygonClickHandler = () => {
+        this.idClickHandler({ target: idObj })
+      }
+      const polygonRightClickHandler = (evt) => {
+        evt.preventDefault()
+        this.changeId(idObj, o)
+      }
+      // o.DOM.addEventListener('click', polygonClickHandler)
+      o.DOM.onclick = polygonClickHandler
+      idObj.oncontextmenu = polygonRightClickHandler
+      o.DOM.oncontextmenu = polygonRightClickHandler
       li.innerHTML = `
           <details>
           <summary>${o.points.length} points</summary>
           <ul id="${o.id}">
           ${o.points.map(({ x, y }) => `<li>{ x: ${x}, y: ${y} }</li>`).join('')}
           </ul>
+
         </details>
       `
       li.prepend(idObj)

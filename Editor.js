@@ -10,9 +10,12 @@ export default class Editor {
   selectedPolygon = NaN
   DOT_SIZE = localStorage["DOT_SIZE"] | 10
   POLYGON_BORDER_WIDTH = localStorage["POLYGON_BORDER_WIDTH"] | 1
+
   constructor(RawSVG) {
     this.RawSvg = RawSVG
     this.DOMEditor = document.querySelector("#editor")
+    this.cloneBtn = document.querySelector("#clonePolygon")
+    this.cloneBtn.addEventListener("click", this.cloneSelectedPolygon)
     this.ZoomBox = new ZoomBox()
     this.zoomUpdateObject = document.createElementNS("http://www.w3.org/2000/svg", "g")
     this.zoomUpdateObject.id = 'zoomUpdateObject'
@@ -46,7 +49,40 @@ export default class Editor {
     this.readPolygons()
     this.svg.addEventListener('click', this.unselectAll)
     this.svg.addEventListener("wheel", this.wheelHandler)
+    document.querySelector('#editorKeyHelper').addEventListener("keyup", this.keyHandler)
     this.setDefaultSettings()
+
+  }
+  cloneSelectedPolygon = () => {
+    if (!isNaN(this.selectedPolygon)) {
+
+
+      const obj = this.polygons[this.selectedPolygon].DOM.cloneNode()
+      obj.classList.remove("active")
+      this.polygons[this.selectedPolygon].DOM.parentElement.append(obj)
+      console.log(obj.getAttribute("points"))
+      const object = new Polygon(obj, this.selectedPolygon + 1)
+
+      this.polygons.push(object)
+      this.polygonMenu.push(object)
+    }
+  }
+  deleteSelectedPolygon = () => {
+    this.polygons[this.selectedPolygon].DOM.remove()
+    this.polygonMenu.objects = []
+    this.polygonMenu.activeElement = null
+    this.polygonMenu.activeInd = NaN
+    this.selectedPolygon = NaN
+    this.polygons = []
+
+    this.readPolygons()
+    this.cloneBtn.setAttribute("disabled", "")
+  }
+  keyHandler = ({ key }) => {
+    if (key == 'Delete' && !isNaN(this.selectedPolygon)) {
+      this.deleteSelectedPolygon()
+
+    }
   }
   wheelHandler = evt => {
     evt.preventDefault()
@@ -124,9 +160,11 @@ export default class Editor {
     document.querySelector('#polygonWidth').innerHTML = `polygon{stroke-width:${this.POLYGON_BORDER_WIDTH};}`
   }
   unselectAll = ({ target: { tagName } }) => {
+    document.querySelector('#editorKeyHelper').focus()
     if (tagName == 'image') this.deselectPolygon()
   }
   deselectPolygon = () => {
+    this.cloneBtn.setAttribute("disabled", "")
     this.pointHelpers = []
     this.polygons.forEach(p => p.dragUnListen())
     this.svg.querySelectorAll("circle.pointHelper").forEach(p => p.remove())
@@ -143,6 +181,7 @@ export default class Editor {
   selectPolygon = ind => {
     this.deselectPolygon()
     this.selectedPolygon = ind
+
     this.polygons[ind].highLight()
     this.polygons[ind].points.forEach((p, i) => {
       let helper = new PointHelper(p, this.DOT_SIZE / this.zoom, this.svg, this.polygons[ind], i, this.polygonMenu)
@@ -151,6 +190,7 @@ export default class Editor {
       this.svg.appendChild(helper.obj())
     })
     this.polygons[ind].dragListen()
+    this.cloneBtn.removeAttribute("disabled")
   }
 
 

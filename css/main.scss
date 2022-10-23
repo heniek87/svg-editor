@@ -16,6 +16,14 @@ body{
 .helpers{
   display: none;
 }
+#editorKeyHelper{
+  position: absolute;
+  z-index: -99;
+  top:0;
+  left:0;
+  width:0;
+  height:0;
+}
 .app{
   display: flex;
   flex-direction: column;
@@ -28,6 +36,9 @@ body{
     position: fixed;
     width:100vw;
     z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     ul{
       list-style-type: none;
       display: flex;
@@ -50,7 +61,7 @@ body{
     }
   }
 
-  .settings{
+  .settings,.idChanger{
     position: absolute;
     top:30%;
     left:50%;
@@ -67,7 +78,7 @@ body{
     box-shadow: 5px 3px 15px 0 hsl(0, 0%, 5%);
     padding: 20px 10px;
     padding-top: 0;
-    #closeBtn{
+    #closeBtn,#closeBtnChanger{
       position: absolute;
       right:10px;
       top:10px;
@@ -82,15 +93,17 @@ body{
       display: flex;
       justify-content: space-between;
       align-items: center;
-      >input{
-        width:50px;
-        font-size: large;
-        color: hsl(0, 0%, 76%);
-        background-color: hsl(0, 0%, 15%);
-        border: none;
-        border-bottom: 1px solid hsl(0, 0%, 76%);
-        text-align: center;
-      }
+
+    }
+    input{
+      width:50px;
+      font-size: large;
+      color: hsl(0, 0%, 76%);
+      background-color: hsl(0, 0%, 15%);
+      border: none;
+      border-bottom: 1px solid hsl(0, 0%, 76%);
+      text-align: center;
+      outline: none;
     }
     h2{
       font-weight: 400;

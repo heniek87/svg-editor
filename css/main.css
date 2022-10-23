@@ -19,6 +19,15 @@ body {
   display: none;
 }
 
+#editorKeyHelper {
+  position: absolute;
+  z-index: -99;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+}
+
 .app {
   display: flex;
   flex-direction: column;
@@ -32,6 +41,9 @@ body {
   position: fixed;
   width: 100vw;
   z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 .app .toolbar ul {
   list-style-type: none;
@@ -52,7 +64,7 @@ body {
   color: hsl(0deg, 0%, 56%);
   pointer-events: none;
 }
-.app .settings {
+.app .settings, .app .idChanger {
   position: absolute;
   top: 30%;
   left: 50%;
@@ -70,23 +82,23 @@ body {
   padding: 20px 10px;
   padding-top: 0;
 }
-.app .settings #closeBtn {
+.app .settings #closeBtn, .app .settings #closeBtnChanger, .app .idChanger #closeBtn, .app .idChanger #closeBtnChanger {
   position: absolute;
   right: 10px;
   top: 10px;
   cursor: pointer;
 }
-.app .settings #closeBtn:hover {
+.app .settings #closeBtn:hover, .app .settings #closeBtnChanger:hover, .app .idChanger #closeBtn:hover, .app .idChanger #closeBtnChanger:hover {
   color: hsl(0deg, 100%, 50%);
 }
-.app .settings div {
+.app .settings div, .app .idChanger div {
   text-align: left;
   width: 250px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.app .settings div > input {
+.app .settings input, .app .idChanger input {
   width: 50px;
   font-size: large;
   color: hsl(0deg, 0%, 76%);
@@ -94,8 +106,9 @@ body {
   border: none;
   border-bottom: 1px solid hsl(0deg, 0%, 76%);
   text-align: center;
+  outline: none;
 }
-.app .settings h2 {
+.app .settings h2, .app .idChanger h2 {
   font-weight: 400;
   margin: 0;
 }

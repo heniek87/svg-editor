@@ -5,6 +5,10 @@ export const readFile = ({ target: { files: [file] } }) => {
   reader.onloadend = ({ target }) => {
     window.RawSVG = target.result
     window.FileName = name
+    document.querySelector('#filename').innerHTML = name
+    if (window.editor != null) {
+      window.editor.svg.remove()
+    }
     window.editor = new Editor(target.result)
     unblockBtns()
   }
@@ -29,6 +33,8 @@ export const openFile = () => {
   fileHelper.addEventListener('change', readFile)
 }
 export const saveFile = () => {
+  window.editor.deselectPolygon()
+  RawSVG = window.editor.svg.outerHTML
   let u = URL.createObjectURL(new Blob([RawSVG], { type: "image/svg+xml" }))
   const helper = document.querySelector("#fileSaveHelper")
   helper.download = FileName
