@@ -1,9 +1,12 @@
+import { AddPointHelper } from "./AddPointHelper.js"
+
 export default class Polygon {
   id = 15
   points = []
   startPoints = []
   dragStartPos = { x: 0, y: 0 }
   pointHelpers = []
+  addPointHelpers = []
   constructor(obj, index) {
     this.id = obj.id
     this.index = index
@@ -16,7 +19,32 @@ export default class Polygon {
       if (x == undefined || y == undefined) return
       if (x.length > 0 && y.length > 0) this.points.push({ x: parseFloat(x), y: parseFloat(y) })
     });
+    this.setAddPointHelpers()
 
+  }
+  reloadAddPointHelpers = () => {
+    this.addPointHelpers = []
+    this.setAddPointHelpers()
+  }
+  hideAddPointHelpers = () => {
+
+  }
+  showAddPointHelpers = () => {
+
+  }
+  setAddPointHelpers = () => {
+    this.points.forEach((h, index) => {
+
+      let nextPointIndex = index == this.points.length - 1 ? 0 : index + 1
+      let n = this.points[nextPointIndex]
+      const data = {
+        pointBefore: { x: h.x, y: h.y },
+        pointAfter: { x: n.x, y: n.y },
+        index
+      }
+      const addPointHelper = new AddPointHelper(data)
+      console.log(addPointHelper)
+    })
   }
   dragListen = () => {
 

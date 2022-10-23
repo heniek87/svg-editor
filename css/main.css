@@ -240,6 +240,26 @@ body {
 .app .editor svg circle.pointHelper:hover:not(.active) {
   fill: hsl(0deg, 100%, 50%);
 }
+.app .editor svg g.addPoint {
+  cursor: pointer;
+  opacity: 1;
+  transition: opacity 150ms;
+}
+.app .editor svg g.addPoint circle.outer {
+  fill: transparent;
+}
+.app .editor svg g.addPoint:hover {
+  opacity: 1;
+}
+.app .editor svg g.addPoint circle.inner {
+  fill: hsl(131deg, 100%, 26%);
+  stroke: hsl(0deg, 0%, 98%);
+  stroke-width: 3;
+}
+.app .editor svg g.addPoint text {
+  fill: hsl(0deg, 0%, 98%);
+  font-size: 24pt;
+}
 .app .editor.view svg > polygon {
   stroke-width: 0;
   opacity: 0;

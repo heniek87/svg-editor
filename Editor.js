@@ -1,4 +1,5 @@
 // import PointHelper from "./PointHelper.js"
+import { AddPointHelper } from "./AddPointHelper.js"
 import Polygon from "./Polygon.js"
 import PolygonMenu from "./PolygonMenu.js"
 import ZoomBox from "./ZoomBox.js"
@@ -186,9 +187,11 @@ export default class Editor {
     this.polygons[ind].points.forEach((p, i) => {
       let helper = new PointHelper(p, this.DOT_SIZE / this.zoom, this.svg, this.polygons[ind], i, this.polygonMenu)
       this.pointHelpers.push(helper)
-
       this.svg.appendChild(helper.obj())
     })
+
+
+
     this.polygons[ind].dragListen()
     this.cloneBtn.removeAttribute("disabled")
   }

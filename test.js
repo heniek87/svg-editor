@@ -7,6 +7,7 @@ const data = {
     <image style="overflow:visible;enable-background:new    ;" width="1800" height="1200"
       xlink:href="https://tnfe.pl/testSvg/house-isolated-field.jpg">
     </image>
+    <g class="locals">
     <polygon id="p0" points="326.7,134 439.2,74.7 417.8,199.8 508.8,288.5 383,306.8 326.7,420.8 270.6,306.8 145.2,288.5 235.8,199.8
 	214.4,74.7 " />
 	<polygon id="p1"
@@ -15,6 +16,9 @@ const data = {
 	1154.1,667.5 1131,531.9 " />
 	<polygon id="p3" points="1000.4,151.8 1122.3,87.5 1099.1,223.2 1197.8,319.3 1061.4,339.2 1000.4,462.8 939.5,339.2 803.5,319.3
 	901.8,223.2 878.6,87.5 " />
+    </g>
+
+
   </svg>`,
   "testName": 'budynek.svg',
 

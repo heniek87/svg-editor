@@ -202,7 +202,7 @@ body{
     svg{
       max-width: 100%;
       max-height: 100%;
-    transform: scale(1);
+      transform: scale(1);
       polygon{
         fill: hsl(100, 100%, 50%);
         fill-opacity: .5;
@@ -232,6 +232,27 @@ body{
         &:hover:not(.active){
           fill:hsl(0, 100%, 50%);
 
+        }
+      }
+      g.addPoint{
+        cursor: pointer;
+        opacity:1;
+        transition: opacity 150ms;
+        circle.outer{
+           fill: transparent;
+
+        }
+        &:hover{
+          opacity:1;
+        }
+        circle.inner{
+          fill:hsl(131deg 100% 26%);
+          stroke: hsl(0deg 0% 98%);
+          stroke-width: 3;
+        }
+        text{
+          fill: hsl(0deg 0% 98%);
+          font-size: 24pt;
         }
       }
     }
