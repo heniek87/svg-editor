@@ -1,5 +1,5 @@
-// import PointHelper from "./PointHelper.js"
-import { AddPointHelper } from "./AddPointHelper.js"
+import PointHelper from "./PointHelper.js"
+
 import Polygon from "./Polygon.js"
 import PolygonMenu from "./PolygonMenu.js"
 import ZoomBox from "./ZoomBox.js"
@@ -62,7 +62,7 @@ export default class Editor {
       obj.classList.remove("active")
       this.polygons[this.selectedPolygon].DOM.parentElement.append(obj)
       console.log(obj.getAttribute("points"))
-      const object = new Polygon(obj, this.selectedPolygon + 1)
+      const object = new Polygon(obj, this.selectedPolygon + 1, this.svg)
 
       this.polygons.push(object)
       this.polygonMenu.push(object)
@@ -147,7 +147,7 @@ export default class Editor {
 
   readPolygons = () => {
     this.svg.querySelectorAll("polygon").forEach((p, i) => {
-      const object = new Polygon(p, i)
+      const object = new Polygon(p, i, this.svg)
 
       this.polygons.push(object)
       this.polygonMenu.push(object)
@@ -176,6 +176,7 @@ export default class Editor {
   setDotSize = (value) => {
     this.DOT_SIZE = parseFloat(value)
     localStorage["DOT_SIZE"] = parseFloat(value)
+    this.polygons.forEach(pl => pl.setScale(this.DOT_SIZE))
     if (!isNaN(this.selectedPolygon)) this.selectPolygon(this.selectedPolygon)
   }
 

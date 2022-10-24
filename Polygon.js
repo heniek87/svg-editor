@@ -1,4 +1,4 @@
-import { AddPointHelper } from "./AddPointHelper.js"
+import AddPointHelper from "./AddPointHelper.js"
 
 export default class Polygon {
   id = 15
@@ -7,10 +7,10 @@ export default class Polygon {
   dragStartPos = { x: 0, y: 0 }
   pointHelpers = []
   addPointHelpers = []
-  constructor(obj, index) {
+  constructor(obj, index, svg) {
     this.id = obj.id
     this.index = index
-
+    this.svg = svg
     this.DOM = obj
     let points = obj.getAttribute("points")
     points.trim().replace(/[\t\n\r]/g, " ").split(" ").forEach(point => {
@@ -27,10 +27,13 @@ export default class Polygon {
     this.setAddPointHelpers()
   }
   hideAddPointHelpers = () => {
-
+    this.addPointHelpers.forEach(p => p.hide())
   }
   showAddPointHelpers = () => {
-
+    this.addPointHelpers.forEach(p => p.show())
+  }
+  setScale = scale => {
+    this.addPointHelpers.forEach(p => p.setScale(scale))
   }
   setAddPointHelpers = () => {
     this.points.forEach((h, index) => {
@@ -40,11 +43,17 @@ export default class Polygon {
       const data = {
         pointBefore: { x: h.x, y: h.y },
         pointAfter: { x: n.x, y: n.y },
-        index
+        index,
+        svg: this.svg
       }
       const addPointHelper = new AddPointHelper(data)
-      console.log(addPointHelper)
+      addPointHelper.clickCallbackListener(this.clickAddPointHandler)
+      this.addPointHelpers.push(addPointHelper)
+
     })
+  }
+  clickAddPointHandler = addPointHelper => {
+    console.log(addPointHelper)
   }
   dragListen = () => {
 
@@ -108,9 +117,10 @@ export default class Polygon {
   }
   highLight = () => {
     this.DOM.classList.add("active")
+    this.showAddPointHelpers()
   }
   lowLight = () => {
-
+    this.hideAddPointHelpers()
     this.DOM.classList.remove("active")
   }
 }

@@ -1,4 +1,4 @@
-class PointHelper {
+export default class PointHelper {
   active = false
   constructor({ x, y }, w, svg, polygon, id, polygonMenu) {
     this.id = id
