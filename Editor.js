@@ -63,13 +63,15 @@ export default class Editor {
       this.polygons[this.selectedPolygon].DOM.parentElement.append(obj)
       console.log(obj.getAttribute("points"))
       const object = new Polygon(obj, this.selectedPolygon + 1, this.svg)
-
+      object.onAddPoint = this.onAddPoint
       this.polygons.push(object)
       this.polygonMenu.push(object)
     }
   }
   deleteSelectedPolygon = () => {
+
     this.polygons[this.selectedPolygon].DOM.remove()
+    this.deselectPolygon()
     this.polygonMenu.objects = []
     this.polygonMenu.activeElement = null
     this.polygonMenu.activeInd = NaN
@@ -148,7 +150,7 @@ export default class Editor {
   readPolygons = () => {
     this.svg.querySelectorAll("polygon").forEach((p, i) => {
       const object = new Polygon(p, i, this.svg)
-
+      object.onAddPoint = this.onAddPoint
       this.polygons.push(object)
       this.polygonMenu.push(object)
 
@@ -179,7 +181,19 @@ export default class Editor {
     this.polygons.forEach(pl => pl.setScale(this.DOT_SIZE))
     if (!isNaN(this.selectedPolygon)) this.selectPolygon(this.selectedPolygon)
   }
+  onAddPoint = () => {
+    const selected = this.selectedPolygon
+    this.deselectPolygon()
+    this.polygonMenu.objects = []
+    this.polygonMenu.activeElement = null
+    this.polygonMenu.activeInd = NaN
+    this.selectedPolygon = NaN
+    this.polygons = []
 
+    this.readPolygons()
+    this.cloneBtn.setAttribute("disabled", "")
+    this.selectPolygon(selected)
+  }
   selectPolygon = ind => {
     this.deselectPolygon()
     this.selectedPolygon = ind
@@ -190,7 +204,7 @@ export default class Editor {
       this.pointHelpers.push(helper)
       this.svg.appendChild(helper.obj())
     })
-
+    this.polygons.forEach(pl => pl.setScale(this.DOT_SIZE / this.zoom))
 
 
     this.polygons[ind].dragListen()

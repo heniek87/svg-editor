@@ -10,6 +10,7 @@
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
   <link rel="stylesheet" href="css/main.css">
   <script type="module" src="Editor.js"></script>
+  <link rel="manifest" href="/manifest.json">
 </head>
 
 <body>
@@ -113,14 +114,22 @@
     </style>
     <input type="file" id="fileOpenHelper" accept="image/svg+xml">
     <input type="file" id="imageFileHelper" accept=".jpg,.gif,.png">
-    <a href="" id="fileSaveHelper"></a>
+    <a href="" id="fileSaveHelper" target="_top">sdfg</a>
     <div id="editorHelper"></div>
   </div>
   <input type="text" id="editorKeyHelper">
 
 
-
-  <script type="module" defer src="test.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/service-worker.js', {
+        scope: '/'
+      }).then((registration) => {
+        // console.log('SW zarejestrowany! Scope:', registration.scope);
+      });
+    }
+  </script>
+  <!-- <script type="module" defer src="test.js"></script> -->
 </body>
 
 </html>
