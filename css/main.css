@@ -242,8 +242,8 @@ body {
 }
 .app .editor svg g.addPoint {
   cursor: pointer;
-  opacity: 1;
-  transition: opacity 150ms;
+  opacity: 0;
+  transition: opacity 250ms;
 }
 .app .editor svg g.addPoint circle.outer {
   fill: transparent;
@@ -254,19 +254,19 @@ body {
 .app .editor svg g.addPoint circle.inner {
   fill: hsl(131deg, 100%, 26%);
   stroke: hsl(0deg, 0%, 98%);
-  stroke-width: 3;
+  stroke-width: 0.2%;
 }
 .app .editor svg g.addPoint text {
   fill: hsl(0deg, 0%, 98%);
   font-size: 24pt;
 }
-.app .editor.view svg > polygon {
+.app .editor.view svg polygon {
   stroke-width: 0;
   opacity: 0;
   transition: opacity 0.2s;
   cursor: pointer;
 }
-.app .editor.view svg > polygon:hover {
+.app .editor.view svg polygon:hover {
   opacity: 1;
 }
 .app [disabled] {

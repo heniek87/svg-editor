@@ -60,7 +60,7 @@ export default class PolygonMenu {
       idObj.id = value
       idObj.innerHTML = `#${value}`
       polygon.id = value
-      polygon.DOM.setAttributeNS("http://www.w3.org/2000/svg", "id", value)
+      polygon.DOM.setAttribute("id", value)
       ul.id = value
     }
     this.idChangerInput.value = polygon.id

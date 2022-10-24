@@ -7,6 +7,7 @@ export default class Polygon {
   dragStartPos = { x: 0, y: 0 }
   pointHelpers = []
   addPointHelpers = []
+  onAddPoint = null
   constructor(obj, index, svg) {
     this.id = obj.id
     this.index = index
@@ -23,6 +24,7 @@ export default class Polygon {
 
   }
   reloadAddPointHelpers = () => {
+    this.hideAddPointHelpers()
     this.addPointHelpers = []
     this.setAddPointHelpers()
   }
@@ -52,9 +54,26 @@ export default class Polygon {
 
     })
   }
-  clickAddPointHandler = addPointHelper => {
-    console.log(addPointHelper)
+  updateAddPointsHelpers = () => {
+    this.points.forEach((h, index) => {
+
+      let nextPointIndex = index == this.points.length - 1 ? 0 : index + 1
+      let n = this.points[nextPointIndex]
+      const data = {
+        pointBefore: { x: h.x, y: h.y },
+        pointAfter: { x: n.x, y: n.y }
+      }
+      this.addPointHelpers[index].updatePoints(data)
+
+    })
   }
+  clickAddPointHandler = ({ position, index }) => {
+    this.points.splice(index + 1, 0, position)
+    this.refresh()
+    this.reloadAddPointHelpers()
+    this.onAddPoint()
+  }
+
   dragListen = () => {
 
     this.DOM.addEventListener("mousedown", this.startDrag)
@@ -66,6 +85,7 @@ export default class Polygon {
     this.DOM.removeEventListener("mousedown", this.startDrag)
     this.DOM.removeEventListener("mouseup", this.endDrag)
     this.DOM.removeEventListener("mouseout", this.endDrag)
+    if (this.DOM.classList.length == 0) this.DOM.removeAttribute("class")
   }
   startDrag = evt => {
     editor.pointHelpers.forEach(h => h.hide())
@@ -86,6 +106,7 @@ export default class Polygon {
     this.points.forEach((p, i) => {
       editor.polygonMenu.updatePoint(p, this.id, i)
     })
+    this.updateAddPointsHelpers()
     this.refresh()
 
   }
@@ -98,6 +119,7 @@ export default class Polygon {
   }
   updatePoint = (coords, i) => {
     this.points[i] = coords
+    this.updateAddPointsHelpers()
     this.refresh()
 
   }
@@ -114,6 +136,7 @@ export default class Polygon {
   removePoint = i => {
     this.points.splice(i, 1)
     this.refresh()
+    this.reloadAddPointHelpers()
   }
   highLight = () => {
     this.DOM.classList.add("active")
@@ -122,5 +145,6 @@ export default class Polygon {
   lowLight = () => {
     this.hideAddPointHelpers()
     this.DOM.classList.remove("active")
+    if (this.DOM.classList.length == 0) this.DOM.removeAttribute("class")
   }
 }

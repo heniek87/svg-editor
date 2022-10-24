@@ -236,8 +236,8 @@ body{
       }
       g.addPoint{
         cursor: pointer;
-        opacity:1;
-        transition: opacity 150ms;
+        opacity:0;
+        transition: opacity 250ms;
         circle.outer{
            fill: transparent;
 
@@ -248,7 +248,7 @@ body{
         circle.inner{
           fill:hsl(131deg 100% 26%);
           stroke: hsl(0deg 0% 98%);
-          stroke-width: 3;
+          stroke-width: 0.2%;
         }
         text{
           fill: hsl(0deg 0% 98%);
@@ -257,7 +257,7 @@ body{
       }
     }
     &.view{
-      svg>polygon{
+      svg polygon{
 
         stroke-width: 0;
         opacity: 0;

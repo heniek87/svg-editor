@@ -10,7 +10,7 @@ export default class AddPointHelper {
   cbFunction = null
   textLeft = -9
   textTop = 11
-  c1r = 30
+  c1r = 20
   c2r = 10
   visible = false
   constructor({ pointBefore, pointAfter, index, svg }) {
@@ -19,6 +19,7 @@ export default class AddPointHelper {
     this.pointAfter = pointAfter
     this.pointBefore = pointBefore
     this.setDOM()
+    this.position = this.getPosition()
   }
   clickCallbackListener = (func) => {
     this.cbFunction = func
@@ -27,15 +28,23 @@ export default class AddPointHelper {
 
   }
   setScale = scale => {
-    this.DOM.remove()
-    this.c1r = (scale * 3)
+    this.c1r = (scale * 2.2)
     this.c2r = scale
-    // this.scale = scale / 10
+    this.scale = scale / 15
+    this.refresh()
+  }
+  updatePoints = ({ pointBefore, pointAfter }) => {
+    this.pointAfter = pointAfter
+    this.pointBefore = pointBefore
+    this.position = this.getPosition()
+    this.refresh()
+  }
+  refresh = () => {
+    this.DOM.remove()
     this.setDOM()
     if (this.visible) this.show()
   }
   show = () => {
-    // console.log(this)
     this.visible = true
     this.svg.appendChild(this.DOM)
   }
@@ -47,6 +56,10 @@ export default class AddPointHelper {
     const x = (this.pointAfter.x + this.pointBefore.x) / 2
     const y = (this.pointAfter.y + this.pointBefore.y) / 2
     return { x, y }
+  }
+  click = evt => {
+    this.cbFunction(this)
+    // console.log(this)
   }
   setDOM = () => {
     const g = document.createElementNS("http://www.w3.org/2000/svg", "g")
@@ -68,12 +81,15 @@ export default class AddPointHelper {
     t.setAttribute("x", this.textLeft)
     t.setAttribute("y", this.textTop)
     t.innerHTML = "+"
+    c2.style.strokeWidth = this.scale * 3
+    t.setAttribute("transform", `scale(${this.scale})`)
     g.append(c1)
-
     g.append(c2)
     g.append(t)
+    g.onclick = this.click
     // window.editor.svg.appendChild(t)
     this.DOM = g
+
   }
 
 }

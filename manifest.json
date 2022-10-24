@@ -1,0 +1,41 @@
+{
+  "name": "SVG Editor",
+  "short_name": "SVG Editor",
+  "icons": [
+    {
+      "src": "/imgs/mstile-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "/imgs/mstile-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "/imgs/mstile-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png"
+    },
+    {
+      "src": "/imgs/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/imgs/mstile-256x256.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    },
+    {
+      "src": "/imgs/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/",
+  "id": "/",
+  "display": "standalone",
+  "background_color": "#182479",
+  "theme_color": "#343a40"
+}
