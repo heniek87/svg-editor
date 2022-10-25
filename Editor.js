@@ -61,11 +61,13 @@ export default class Editor {
       const obj = this.polygons[this.selectedPolygon].DOM.cloneNode()
       obj.classList.remove("active")
       this.polygons[this.selectedPolygon].DOM.parentElement.append(obj)
-      console.log(obj.getAttribute("points"))
+
       const object = new Polygon(obj, this.selectedPolygon + 1, this.svg)
       object.onAddPoint = this.onAddPoint
       this.polygons.push(object)
       this.polygonMenu.push(object)
+
+      this.polygonMenu.selectLastElement()
     }
   }
   deleteSelectedPolygon = () => {

@@ -5,6 +5,31 @@
   margin:0;
   padding: 0;
 }
+/* ===== Scrollbar CSS ===== */
+  /* Firefox */
+  * {
+    scrollbar-width: auto;
+    scrollbar-color: #5c5c5c #262626;
+  }
+
+  /* Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 16px;
+    height: 16px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: #262626;
+  }
+  *::-webkit-scrollbar-corner {
+    background: #262626;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: #5c5c5c;
+    border-radius: 10px;
+    border: 3px solid hsl(0deg, 0%, 15%);
+  }
 body{
   background-color: hsl(0, 0%, 20%);
   color:hsl(0, 0%, 96%);
@@ -182,12 +207,12 @@ body{
   }
   .editor{
     position: relative;
-    top:36px;
+    top:48px;
     // flex: 1;
     overflow: auto;
-    margin: 10px;
+
     width: calc(100% - 20px);
-    height: calc(100vh - 56px);
+    height: calc(100vh - 48px);
     display: flex;
     align-items: center;
     justify-content: center;

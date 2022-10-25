@@ -23,9 +23,9 @@ const data = {
   "testName": 'budynek.svg',
 
 }
-// window.RawSVG = data.testSVG
-// window.FileName = data.testName
-// document.querySelector('#filename').innerHTML = window.FileName
-// window.editor = new Editor(data.testSVG)
-// window.unblockBtns()
-// document.querySelector("#objectsArea").classList.add("show")
+window.RawSVG = data.testSVG
+window.FileName = data.testName
+document.querySelector('#filename').innerHTML = window.FileName
+window.editor = new Editor(data.testSVG)
+window.unblockBtns()
+document.querySelector("#objectsArea").classList.add("show")

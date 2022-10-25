@@ -31,3 +31,36 @@ document.querySelector("#showObjectsBtn").addEventListener("click", () => {
 })
 document.querySelector(".settings #dotSize").addEventListener("input", ({ target: { value } }) => editor.setDotSize(value))
 document.querySelector(".settings #borderWidth").addEventListener("input", ({ target: { value } }) => editor.setBorderWidth(value))
+document.addEventListener("click", ({ target }) => {
+  if (target.id != "idChanger" && target.parentElement.id != "idChanger") {
+    document.querySelector("#idChanger").setAttribute("disabled", "")
+  }
+})
+document.addEventListener("keydown", (evt) => {
+  const { ctrlKey, key } = evt
+  if (key == "Escape") {
+    document.querySelector("#idChanger").setAttribute("disabled", "")
+    document.querySelector("#settings").setAttribute("disabled", "")
+  }
+  if (ctrlKey) {
+    evt.preventDefault()
+    switch (key) {
+      case "s":
+        document.querySelector("#saveFileBtn").click()
+        break;
+      case "o":
+        document.querySelector("#openFileBtn").click()
+        break;
+      case "+":
+        document.querySelector("#zoomIn").click()
+        break;
+      case "-":
+        document.querySelector("#zoomOut").click()
+        break;
+      case "d":
+        if (!isNaN(window.editor.selectedPolygon)) document.querySelector("#clonePolygon").click()
+        break;
+
+    }
+  }
+})

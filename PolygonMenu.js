@@ -2,6 +2,7 @@ export default class PolygonMenu {
   objects = []
   activeElement = null
   activeInd = NaN
+  isObjs = []
   constructor() {
     this.DOM = document.querySelector("#polygonObjects")
     this.idChanger = document.querySelector("#idChanger")
@@ -26,6 +27,14 @@ export default class PolygonMenu {
     this.activeElement = target.parentElement
     this.activeElement.classList.add("active")
 
+  }
+  selectLastElement = () => {
+    const lastElement = this.isObjs[this.isObjs.length - 1]
+
+    window.editor.selectPolygon(lastElement.index)
+    this.activeInd = lastElement.index
+    this.activeElement = lastElement.parentElement
+    this.activeElement.classList.add("active")
   }
   updatePoint = ({ x, y }, pid, id) => {
     try {
@@ -53,7 +62,7 @@ export default class PolygonMenu {
     o.DOM.classList.remove("over")
   }
   changeId = (idObj, polygon) => {
-    console.log(idObj, polygon)
+    // console.log(idObj, polygon)
     this.idChanger.removeAttribute("disabled")
     const ul = this.DOM.querySelector(`ul#${polygon.id}`)
     const change = ({ target: { value } }) => {
@@ -64,7 +73,7 @@ export default class PolygonMenu {
       ul.id = value
     }
     this.idChangerInput.value = polygon.id
-    this.idChangerInput.select()
+
     this.idChangerInput.focus()
     this.idChangerInput.oninput = change
     this.idChangerInput.onkeyup = ({ key }) => {
@@ -75,6 +84,7 @@ export default class PolygonMenu {
   }
   refreshMenu = () => {
     this.DOM.innerHTML = ''
+    this.isObjs = []
     const ul = document.createDocumentFragment()
     this.objects.forEach((o, index) => {
 
@@ -105,6 +115,7 @@ export default class PolygonMenu {
         </details>
       `
       li.prepend(idObj)
+      this.isObjs.push(idObj)
       li.addEventListener('mouseover', () => this.over(o))
       li.addEventListener('mouseout', () => this.out(o))
       ul.appendChild(li)
