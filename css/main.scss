@@ -69,24 +69,24 @@ body{
       display: flex;
       color: hsl(0, 0%, 76%);
       border-spacing: 0;
-      li{
-        text-align: center;
-        padding:10px 7px;
-        cursor: pointer;
+    }
+    ul>li,#clonePolygon{
+      text-align: center;
+      padding:10px 7px;
+      cursor: pointer;
 
-        &:hover{
-          color:hsl(0, 0%, 96%);
-          background-color: hsl(0, 0%, 20%);
-        }
-        &[disabled]{
-          color: hsl(0, 0%, 56%);
-          pointer-events: none;
-        }
+      &:hover{
+        color:hsl(0, 0%, 96%);
+        background-color: hsl(0, 0%, 20%);
+      }
+      &[disabled]{
+        color: hsl(0, 0%, 56%);
+        pointer-events: none;
       }
     }
   }
 
-  .settings,.idChanger{
+  .settings,.idChanger,.helpBox{
     position: absolute;
     top:30%;
     left:50%;
@@ -103,7 +103,59 @@ body{
     box-shadow: 5px 3px 15px 0 hsl(0, 0%, 5%);
     padding: 20px 10px;
     padding-top: 0;
-    #closeBtn,#closeBtnChanger{
+    &.helpBox{
+      top:100px;
+      transform: translate(-50%,0);
+      height:inherit;
+      max-height: 600px;
+
+      h2{
+        margin-top: 23px;
+        border-bottom: 1px solid hsl(0, 0%, 56%);
+      }
+      h3{
+        margin: 23px 0 10px;
+        font-weight: normal;
+        font-size: 22px;
+        align-self: center;
+      }
+      .content{
+        width: 100%;
+        overflow: auto;
+        align-items: flex-start!important;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+      }
+      ul{
+        list-style-type: none;
+        width:300px;
+        align-self: center;
+        li{
+
+          width:max-content;
+          display: flex;
+          align-items: center;
+          padding: 5px;
+          .title{
+            margin-left:20px;
+          }
+          &[disabled]{
+            display: none;
+          }
+        }
+      }
+      .shortcut-list{
+        li>span:nth-child(1){
+          width: 100px;
+        }
+      }
+      .desc{
+        align-self: center;
+        padding: 5px;
+      }
+    }
+    #closeBtn,#closeBtnChanger,#closeHelpBox{
       position: absolute;
       right:10px;
       top:10px;
@@ -121,7 +173,7 @@ body{
 
     }
     input{
-      width:50px;
+      width:100px;
       font-size: large;
       color: hsl(0, 0%, 76%);
       background-color: hsl(0, 0%, 15%);
@@ -163,19 +215,25 @@ body{
       position: relative;
       top:48px;
       width:300px;
-
+      overflow: auto;
       height: calc(100vh - 48px);
       background-color: hsl(0, 0%, 15%);
       box-shadow: 0 0 15px 0 hsl(0, 0%, 0%);
+      padding-bottom: 10px;
       &.show{
         display: block;
       }
       h3{
+        position: sticky;
+        top:0px;
         font-weight: 400;
         text-align: center;
-        margin: 10px;
+        margin: 0px 10px;
+        padding-top: 10px;
         padding-bottom: 5px;
         border-bottom: 1px solid hsl(0, 0%, 76%);
+        background-color:  hsl(0, 0%, 15%);
+        box-shadow: 0 0 5px 12px hsl(0, 0%, 15%);
       }
       ul{
         list-style-type: none;

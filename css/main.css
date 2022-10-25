@@ -78,20 +78,20 @@ body {
   color: hsl(0deg, 0%, 76%);
   border-spacing: 0;
 }
-.app .toolbar ul li {
+.app .toolbar ul > li, .app .toolbar #clonePolygon {
   text-align: center;
   padding: 10px 7px;
   cursor: pointer;
 }
-.app .toolbar ul li:hover {
+.app .toolbar ul > li:hover, .app .toolbar #clonePolygon:hover {
   color: hsl(0deg, 0%, 96%);
   background-color: hsl(0deg, 0%, 20%);
 }
-.app .toolbar ul li[disabled] {
+.app .toolbar ul > li[disabled], .app .toolbar #clonePolygon[disabled] {
   color: hsl(0deg, 0%, 56%);
   pointer-events: none;
 }
-.app .settings, .app .idChanger {
+.app .settings, .app .idChanger, .app .helpBox {
   position: absolute;
   top: 30%;
   left: 50%;
@@ -109,24 +109,74 @@ body {
   padding: 20px 10px;
   padding-top: 0;
 }
-.app .settings #closeBtn, .app .settings #closeBtnChanger, .app .idChanger #closeBtn, .app .idChanger #closeBtnChanger {
+.app .settings.helpBox, .app .idChanger.helpBox, .app .helpBox.helpBox {
+  top: 100px;
+  transform: translate(-50%, 0);
+  height: inherit;
+  max-height: 600px;
+}
+.app .settings.helpBox h2, .app .idChanger.helpBox h2, .app .helpBox.helpBox h2 {
+  margin-top: 23px;
+  border-bottom: 1px solid hsl(0deg, 0%, 56%);
+}
+.app .settings.helpBox h3, .app .idChanger.helpBox h3, .app .helpBox.helpBox h3 {
+  margin: 23px 0 10px;
+  font-weight: normal;
+  font-size: 22px;
+  align-self: center;
+}
+.app .settings.helpBox .content, .app .idChanger.helpBox .content, .app .helpBox.helpBox .content {
+  width: 100%;
+  overflow: auto;
+  align-items: flex-start !important;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+.app .settings.helpBox ul, .app .idChanger.helpBox ul, .app .helpBox.helpBox ul {
+  list-style-type: none;
+  width: 300px;
+  align-self: center;
+}
+.app .settings.helpBox ul li, .app .idChanger.helpBox ul li, .app .helpBox.helpBox ul li {
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  display: flex;
+  align-items: center;
+  padding: 5px;
+}
+.app .settings.helpBox ul li .title, .app .idChanger.helpBox ul li .title, .app .helpBox.helpBox ul li .title {
+  margin-left: 20px;
+}
+.app .settings.helpBox ul li[disabled], .app .idChanger.helpBox ul li[disabled], .app .helpBox.helpBox ul li[disabled] {
+  display: none;
+}
+.app .settings.helpBox .shortcut-list li > span:nth-child(1), .app .idChanger.helpBox .shortcut-list li > span:nth-child(1), .app .helpBox.helpBox .shortcut-list li > span:nth-child(1) {
+  width: 100px;
+}
+.app .settings.helpBox .desc, .app .idChanger.helpBox .desc, .app .helpBox.helpBox .desc {
+  align-self: center;
+  padding: 5px;
+}
+.app .settings #closeBtn, .app .settings #closeBtnChanger, .app .settings #closeHelpBox, .app .idChanger #closeBtn, .app .idChanger #closeBtnChanger, .app .idChanger #closeHelpBox, .app .helpBox #closeBtn, .app .helpBox #closeBtnChanger, .app .helpBox #closeHelpBox {
   position: absolute;
   right: 10px;
   top: 10px;
   cursor: pointer;
 }
-.app .settings #closeBtn:hover, .app .settings #closeBtnChanger:hover, .app .idChanger #closeBtn:hover, .app .idChanger #closeBtnChanger:hover {
+.app .settings #closeBtn:hover, .app .settings #closeBtnChanger:hover, .app .settings #closeHelpBox:hover, .app .idChanger #closeBtn:hover, .app .idChanger #closeBtnChanger:hover, .app .idChanger #closeHelpBox:hover, .app .helpBox #closeBtn:hover, .app .helpBox #closeBtnChanger:hover, .app .helpBox #closeHelpBox:hover {
   color: hsl(0deg, 100%, 50%);
 }
-.app .settings div, .app .idChanger div {
+.app .settings div, .app .idChanger div, .app .helpBox div {
   text-align: left;
   width: 250px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.app .settings input, .app .idChanger input {
-  width: 50px;
+.app .settings input, .app .idChanger input, .app .helpBox input {
+  width: 100px;
   font-size: large;
   color: hsl(0deg, 0%, 76%);
   background-color: hsl(0deg, 0%, 15%);
@@ -135,7 +185,7 @@ body {
   text-align: center;
   outline: none;
 }
-.app .settings h2, .app .idChanger h2 {
+.app .settings h2, .app .idChanger h2, .app .helpBox h2 {
   font-weight: 400;
   margin: 0;
 }
@@ -165,19 +215,27 @@ body {
   position: relative;
   top: 48px;
   width: 300px;
+  overflow: auto;
   height: calc(100vh - 48px);
   background-color: hsl(0deg, 0%, 15%);
   box-shadow: 0 0 15px 0 hsl(0deg, 0%, 0%);
+  padding-bottom: 10px;
 }
 .app .content .objects.show {
   display: block;
 }
 .app .content .objects h3 {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0px;
   font-weight: 400;
   text-align: center;
-  margin: 10px;
+  margin: 0px 10px;
+  padding-top: 10px;
   padding-bottom: 5px;
   border-bottom: 1px solid hsl(0deg, 0%, 76%);
+  background-color: hsl(0deg, 0%, 15%);
+  box-shadow: 0 0 5px 12px hsl(0deg, 0%, 15%);
 }
 .app .content .objects ul {
   list-style-type: none;
@@ -297,4 +355,4 @@ body {
 }
 .app [disabled] {
   display: none;
-}/*# sourceMappingURL=main.css.map */
+}
