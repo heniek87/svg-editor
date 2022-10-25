@@ -34,6 +34,7 @@ export const openFile = () => {
 }
 export const saveFile = () => {
   window.editor.deselectPolygon()
+  window.editor.svg.removeAttribute("style")
   RawSVG = window.editor.svg.outerHTML
   let u = URL.createObjectURL(new Blob([RawSVG], { type: "image/svg+xml" }))
   const helper = document.querySelector("#fileSaveHelper")
