@@ -10,6 +10,7 @@ window.unblockBtns = () => {
   document.querySelector("#viewToggleBtn").removeAttribute("disabled")
   document.querySelector("#showObjectsBtn").removeAttribute("disabled")
   document.querySelector("#zoomBox").removeAttribute("disabled")
+  document.querySelector("#gridOn").removeAttribute("disabled")
 
 }
 
@@ -24,6 +25,7 @@ document.querySelector(".helpBox>#closeHelpBox").addEventListener("click", () =>
 document.querySelector("#saveFileBtn").addEventListener("click", saveFile)
 document.querySelector("#importImageBtn").addEventListener("click", importImage)
 document.querySelector("#viewToggleBtn").addEventListener("click", () => editor.DOMEditor.classList.toggle("view"))
+document.querySelector("#gridOn").addEventListener("click", () => editor.DOMEditor.classList.toggle("grid"))
 document.querySelector("#showObjectsBtn").addEventListener("click", () => {
   document.querySelector("#objectsArea").classList.toggle("show")
   const { width, height } = editor.svg.getBoundingClientRect()
@@ -33,6 +35,9 @@ document.querySelector("#showObjectsBtn").addEventListener("click", () => {
 })
 document.querySelector(".settings #dotSize").addEventListener("input", ({ target: { value } }) => {
   if (editor) editor.setDotSize(value)
+})
+document.querySelector(".settings #gridSize").addEventListener("input", ({ target: { value } }) => {
+  if (editor) editor.setGridSize(value)
 })
 document.querySelector(".settings #borderWidth").addEventListener("input", ({ target: { value } }) => {
   if (editor) editor.setBorderWidth(value)

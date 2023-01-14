@@ -10,6 +10,7 @@ export default class Editor {
   pointHelpers = []
   selectedPolygon = NaN
   DOT_SIZE = localStorage["DOT_SIZE"] | 10
+  GRID_SIZE = localStorage["GRID_SIZE"] | 10
   POLYGON_BORDER_WIDTH = localStorage["POLYGON_BORDER_WIDTH"] | 1
 
   constructor(RawSVG) {
@@ -111,7 +112,9 @@ export default class Editor {
   setDefaultSettings = () => {
     this.setBorderWidth(this.POLYGON_BORDER_WIDTH)
     this.setDotSize(this.DOT_SIZE)
+    this.setGridSize(this.GRID_SIZE)
     document.querySelector(".settings #dotSize").value = this.DOT_SIZE
+    document.querySelector(".settings #gridSize").value = this.GRID_SIZE
     document.querySelector(".settings #borderWidth").value = this.POLYGON_BORDER_WIDTH
 
   }
@@ -183,6 +186,10 @@ export default class Editor {
     this.polygons.forEach(pl => pl.setScale(this.DOT_SIZE))
     if (!isNaN(this.selectedPolygon)) this.selectPolygon(this.selectedPolygon)
   }
+  setGridSize = (value) => {
+    this.GRID_SIZE = parseFloat(value)
+    localStorage["GRID_SIZE"] = parseFloat(value)
+  }
   onAddPoint = () => {
     const selected = this.selectedPolygon
     this.deselectPolygon()
@@ -213,6 +220,8 @@ export default class Editor {
     this.cloneBtn.removeAttribute("disabled")
   }
 
+  showGrid = () => {
 
+  }
 
 }

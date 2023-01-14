@@ -48,6 +48,11 @@
             layers
           </span>
         </li>
+        <li disabled id="gridOn">
+          <span class="material-symbols-outlined">
+            grid_on
+          </span>
+        </li>
         <li id="settingsBtn">
           <span class="material-symbols-outlined">
             settings
@@ -65,6 +70,7 @@
           content_copy
         </span>
       </div>
+
       <div id="filename"></div>
       <script type="module" src="menu.js" defer></script>
     </div>
@@ -72,6 +78,7 @@
 
       <div class="editor" id="editor">
         <div id="rect"></div>
+        <canvas id="grid"></canvas>
       </div>
       <div class="objects" id="objectsArea">
         <h3>Polygons</h3>
@@ -95,6 +102,10 @@
       <div class="dotSize">
         <label for="dotSize">Dot points size</label>
         <input type="number" id="dotSize" min="1" step="1" value="10" />
+      </div>
+      <div class="dotSize">
+        <label for="gridSize">Grid size</label>
+        <input type="number" id="gridSize" min="1" step="1" value="10" />
       </div>
       <div class="borderWidth">
         <label for="borderWidth">Polygon border width</label>
