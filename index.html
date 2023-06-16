@@ -53,12 +53,18 @@
             settings
           </span>
         </li>
-        <li disabled id="clonePolygon">
+        <li id="helpBtn">
           <span class="material-symbols-outlined">
-            content_copy
+            help
           </span>
         </li>
+
       </ul>
+      <div disabled id="clonePolygon">
+        <span class="material-symbols-outlined">
+          content_copy
+        </span>
+      </div>
       <div id="filename"></div>
       <script type="module" src="menu.js" defer></script>
     </div>
@@ -104,6 +110,115 @@
       <input type="text" id="idChangerInput" value="" />
       <!-- <button>Zamknij</button> -->
     </div>
+    <div class="helpBox" disabled id="helpBox">
+      <span id="closeHelpBox" class="material-symbols-outlined">
+        close
+      </span>
+      <h2>Shortcut & Help</h2>
+      <div class="content">
+        <h3>Menu icons</h3>
+        <ul>
+          <!-- <li disabled>New</li> -->
+          <li>
+            <span class="material-symbols-outlined">
+              file_open
+            </span> <span class="title">Open file</span>
+          </li>
+          <li>
+            <span class="material-symbols-outlined">
+              save
+            </span> <span class="title">Save file</span>
+          </li>
+          <li>
+            <span class="material-symbols-outlined">
+              image
+            </span> <span class="title">Import image</span>
+          </li>
+          <li disabled>
+            <span class="material-symbols-outlined">
+              pentagon
+            </span> <span class="title">New polygon</span>
+          </li>
+          <li>
+            <span class="material-symbols-outlined">
+              visibility
+            </span> <span class="title">View toggle</span>
+          </li>
+          <li>
+            <span class="material-symbols-outlined">
+              layers
+            </span> <span class="title">List polygons toggle</span>
+          </li>
+          <li>
+            <span class="material-symbols-outlined">
+              settings
+            </span> <span class="title">Settings</span>
+          </li>
+          <li>
+            <span class="material-symbols-outlined">
+              content_copy
+            </span> <span class="title">Duplicate selected polygon</span>
+          </li>
+
+        </ul>
+        <div class="desc">Press right mouse click on polygon or id (list polygons) for change id</div>
+        <h3>Shortcuts</h3>
+        <ul class="shortcut-list">
+          <!-- <li disabled>New</li> -->
+          <li>
+            <span>
+              Ctrl + O
+            </span> <span class="title">Open file</span>
+          </li>
+          <li>
+            <span>
+              Ctrl + S
+            </span> <span class="title">Save file</span>
+          </li>
+          <li>
+            <span>
+              Scroll
+            </span> <span class="title">Scroll horizontal</span>
+          </li>
+          <li>
+            <span>
+              Ctrl + Scroll
+            </span> <span class="title">Scroll vertical</span>
+          </li>
+          <li>
+            <sup>
+              Add Shift to scroll faster
+            </sup>
+          </li>
+
+          <li>
+            <span>
+              Alt + Scroll
+            </span> <span class="title">Zoom in / out</span>
+          </li>
+          <li>
+            <span>
+              Ctrl + "+"
+            </span> <span class="title">Zoom in</span>
+          </li>
+          <li>
+            <span>
+              Ctrl + "-"
+            </span> <span class="title">Zoom out</span>
+          </li>
+          <li>
+            <span>
+              Ctrl + D
+            </span> <span class="title">Duplicate selected polygon</span>
+          </li>
+          <li>
+            <span>
+              <del>Ctrl + N</del>
+            </span> <span class="title"><del>New polygon</del></span>
+          </li>
+        </ul>
+      </div>
+    </div>
 
   </div>
   <div class="helpers">
@@ -129,7 +244,7 @@
       });
     }
   </script>
-  <!-- <script type="module" defer src="test.js"></script> -->
+  <script type="module" defer src="test.js"></script>
 </body>
 
 </html>

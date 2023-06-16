@@ -18,8 +18,11 @@ export default class AddPointHelper {
     this.index = index
     this.pointAfter = pointAfter
     this.pointBefore = pointBefore
+
+
     this.setDOM()
     this.position = this.getPosition()
+
   }
   clickCallbackListener = (func) => {
     this.cbFunction = func
@@ -46,7 +49,10 @@ export default class AddPointHelper {
   }
   show = () => {
     this.visible = true
-    this.svg.appendChild(this.DOM)
+    const domBefore = this.svg.querySelector(".pointHelper")
+
+    if (domBefore == null) this.svg.append(this.DOM)
+    else domBefore.before(this.DOM)
   }
   hide = () => {
     this.visible = false
