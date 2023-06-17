@@ -48,6 +48,8 @@ document.addEventListener("keydown", (evt) => {
     document.querySelector("#idChanger").setAttribute("disabled", "")
     document.querySelector("#settings").setAttribute("disabled", "")
     document.querySelector("#helpBox").setAttribute("disabled", "")
+    window.editor.pointHelpers.forEach(ph => ph.removeActive())
+    window.editor.deselectPolygon()
   }
   if (ctrlKey) {
     evt.preventDefault()
