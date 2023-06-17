@@ -10,6 +10,7 @@ window.unblockBtns = () => {
   document.querySelector("#viewToggleBtn").removeAttribute("disabled")
   document.querySelector("#showObjectsBtn").removeAttribute("disabled")
   document.querySelector("#zoomBox").removeAttribute("disabled")
+  document.querySelector("#newPolygonBtn").removeAttribute("disabled")
 
 }
 
@@ -23,6 +24,7 @@ document.querySelector(".settings>#closeBtn").addEventListener("click", () => do
 document.querySelector(".helpBox>#closeHelpBox").addEventListener("click", () => document.querySelector('#helpBox').setAttribute("disabled", ""))
 document.querySelector("#saveFileBtn").addEventListener("click", saveFile)
 document.querySelector("#importImageBtn").addEventListener("click", importImage)
+document.querySelector("#newPolygonBtn").addEventListener("click", () => editor.newPolygon())
 document.querySelector("#viewToggleBtn").addEventListener("click", () => editor.DOMEditor.classList.toggle("view"))
 document.querySelector("#showObjectsBtn").addEventListener("click", () => {
   document.querySelector("#objectsArea").classList.toggle("show")
@@ -68,6 +70,9 @@ document.addEventListener("keydown", (evt) => {
         break;
       case "d":
         if (!isNaN(window.editor.selectedPolygon)) document.querySelector("#clonePolygon").click()
+        break;
+      case "v":
+        document.querySelector("#newPolygonBtn").click()
         break;
 
     }

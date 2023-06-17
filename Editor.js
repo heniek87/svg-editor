@@ -70,6 +70,28 @@ export default class Editor {
       this.polygonMenu.selectLastElement()
     }
   }
+
+  getNewPoints = () => {
+
+    const windowPos = this.DOMEditor.scrollLeft
+    console.log(windowPos)
+    return '250,200 200,300 300,300'
+  }
+
+  newPolygon = () => {
+    const p = document.createElementNS("http://www.w3.org/2000/svg", "polygon")
+    p.setAttributeNS(null, "id", `newPolygon`)
+    p.setAttributeNS(null, "points", this.getNewPoints())
+    this.polygons[0].DOM.parentElement.append(p)
+
+    const object = new Polygon(p, this.polygons.length, this.svg)
+    object.onAddPoint = this.onAddPoint
+    this.polygons.push(object)
+    this.polygonMenu.push(object)
+
+    this.polygonMenu.selectLastElement()
+
+  }
   deleteSelectedPolygon = () => {
 
     this.polygons[this.selectedPolygon].DOM.remove()
