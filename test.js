@@ -24,5 +24,10 @@ const data = {
 // document.querySelector('#filename').innerHTML = window.FileName
 // window.editor = new Editor(data.testSVG)
 // window.unblockBtns()
+
+// const dot = document.createElement('div')
+// dot.id = "dot"
+// window.editor.DOMEditor.append(dot)
+
 // // document.querySelector("#objectsArea").classList.add("show")
 // document.querySelector('#helpBox').removeAttribute("disabled")

@@ -20,9 +20,11 @@ export default class Editor {
     this.ZoomBox = new ZoomBox()
     this.zoomUpdateObject = document.createElementNS("http://www.w3.org/2000/svg", "g")
     this.zoomUpdateObject.id = 'zoomUpdateObject'
-    this.ZoomBox.change(zoom => {
+    this.scrollPos = { x: 0, y: 0 }
+    this.mousePos = { x: 0, y: 0 }
+    this.ZoomBox.change((zoom, c) => {
       this.zoom = zoom
-      this.updateZoomEditor()
+      this.updateZoomEditor(c)
     })
     this.polygonMenu = new PolygonMenu()
     this.editorHelper = document.querySelector("#editorHelper")
@@ -42,6 +44,8 @@ export default class Editor {
     })
     this.image = image
     this.DOMEditor.appendChild(this.svg)
+    this.DOMEditor.addEventListener('scroll', this.setScroll)
+
     const { width, height } = this.svg.getBoundingClientRect()
     this.rect = document.querySelector('#rect')
     this.rect.style.width = `${width}px`
@@ -49,6 +53,7 @@ export default class Editor {
 
     this.readPolygons()
     this.svg.addEventListener('click', this.unselectAll)
+
     this.svg.addEventListener("wheel", this.wheelHandler)
     document.querySelector('#editorKeyHelper').addEventListener("keyup", this.keyHandler)
     this.setDefaultSettings()
@@ -70,12 +75,26 @@ export default class Editor {
       this.polygonMenu.selectLastElement()
     }
   }
+  setScroll = () => {
 
+    this.scrollPos.x = this.DOMEditor.scrollLeft
+    this.scrollPos.y = this.DOMEditor.scrollTop
+    this.setScrollCenter()
+  }
+
+  setScrollCenter = () => {
+    const { width, height } = editor.DOMEditor.getBoundingClientRect()
+    const { x, y } = this.scrollPos
+    this.scrollCenter = {
+      x: ((width / 2) + x) / this.zoom,
+      y: ((height / 2) + y) / this.zoom
+    }
+
+  }
   getNewPoints = () => {
 
-    const windowPos = this.DOMEditor.scrollLeft
-    console.log(windowPos)
-    return '250,200 200,300 300,300'
+
+    return `250,200 200,300 300,300`
   }
 
   newPolygon = () => {
@@ -116,7 +135,7 @@ export default class Editor {
     if (evt.altKey) {
       let { deltaY } = evt
       deltaY = deltaY / 1000
-      this.ZoomBox.setZoom(this.zoom - deltaY)
+      this.ZoomBox.setZoom(this.zoom - deltaY, 'm')
 
     }
     let scrollLvl = 0.1
@@ -137,15 +156,16 @@ export default class Editor {
     document.querySelector(".settings #borderWidth").value = this.POLYGON_BORDER_WIDTH
 
   }
-  updateZoomEditor = () => {
+  updateZoomEditor = (c) => {
+
+
+
     this.svg.style.transform = `scale(${this.zoom})`
     this.rect.style.transform = `translate(-50%,-50%) scale(${this.zoom})`
     this.svg.appendChild(this.zoomUpdateObject)
 
 
     let { left, top } = this.rect.getBoundingClientRect()
-
-    // console.log(left, top)
 
     this.svg.style.transformOrigin = `${top < 36 ? "top" : "center"} ${left < 10 ? "left" : "center"}`
     if (left < 0) this.DOMEditor.style.justifyContent = "flex-start"
@@ -158,6 +178,15 @@ export default class Editor {
       this.zoomUpdateObject.remove()
     }, 100)
     if (!isNaN(this.selectedPolygon)) this.selectPolygon(this.selectedPolygon)
+
+
+    // wyrównanie pozycji do środka oekranu
+    const { x, y } = this.scrollCenter
+    const { width: w, height: h } = this.DOMEditor.getBoundingClientRect()
+    this.DOMEditor.scroll(x * this.zoom - (w / 2), y * this.zoom - (h / 2))
+
+
+
   }
   refresh = () => {
     this.DOMEditor.innerHTML = this.svg.outerHTML
